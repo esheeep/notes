@@ -44,12 +44,12 @@ func writeFile(path string, data []byte) error {
 }
 
 // generateHTMLPage creates a complete HTML page from markdown content
-func generateHTMLPage(content string) string {
+func generateHTMLPage(cssPath string, content string, backLink string) string {
 	template, err := readFile("template.html")
 	if err != nil {
 		log.Fatalf("Failed to read HTML template: %v", err)
 	}
-	return fmt.Sprintf(string(template), content)
+	return fmt.Sprintf(string(template), cssPath, content, backLink)
 }
 
 // createDirectory creates a directory if it doesn't exist
@@ -73,7 +73,13 @@ func processFile(srcPath, destPath string) error {
 	}
 
 	htmlData := mdToHTML(mdData)
-	htmlContent := generateHTMLPage(string(htmlData))
+
+	// Calculate the relative path to the stylesheet
+	depth := strings.Count(filepath.Dir(destPath), string(os.PathSeparator))
+	cssPath := strings.Repeat("../", depth) + "style.css"
+	backLink := strings.Repeat("../", depth) + "index.html"
+
+	htmlContent := generateHTMLPage(cssPath, string(htmlData), backLink)
 
 	destPath = strings.TrimSuffix(destPath, mdExtension) + htmlExtension
 	if err := writeFile(destPath, []byte(htmlContent)); err != nil {

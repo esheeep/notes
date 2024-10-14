@@ -79,7 +79,7 @@ button {
 }
 
 button:hover {
-    background-color: #22863a;
+    background-color: #f0f6fc;
 }
 
 /* Small Text (Meta Info, Labels) */
@@ -90,11 +90,6 @@ small {
 }
 
 /* Links */
-a {
-    color: #0366d6;
-    text-decoration: none;
-}
-
 a:hover {
     text-decoration: underline;
 }
@@ -112,6 +107,20 @@ ul, ol {
 li {
     margin-bottom: 4px;
 }
+h1 {
+    position: relative; /* Positioning context for the pseudo-element */
+    font-size: 2em; /* Adjust font size as needed */
+    margin-bottom: 0.5em; /* Space between heading and underline */
+}
+
+h1::after {
+    content: ""; /* Required for pseudo-element */
+    display: block; /* Makes the pseudo-element a block */
+    height: 1px; /* Height of the underline */
+    background-color: #e1e4e8; /* Color of the underline */
+    margin-top: 0.2em; /* Space between heading and underline */
+    border-radius: 2px; /* Rounded corners for the underline */
+}
 
 /* Tables */
 table {
@@ -128,4 +137,39 @@ th, td {
 
 .hljs{
     background: #f6f8fa;
+}
+
+.markdown-body {
+    max-width: 980px; /* GitHub-like content width */
+    margin: 32px auto; /* 32px top/bottom, auto left/right to center */
+    padding: 24px; /* Inner padding for content */
+    background-color: #ffffff; /* White background for content section */
+    border-radius: 8px; /* Optional: Subtle rounded corners */
+}
+
+.back-link {
+    position: relative;
+    display: inline-block;
+    font-size: 16px;
+    text-decoration: none;
+}
+
+.back-link:hover {
+    color: #24292e;
+    text-decoration: underline;
+}
+
+.back-link:active {
+    color: #012a4a;
+}
+
+.back-link:visited {
+    color: #24292e; /* Maintain the same color for visited links */
+}
+
+hr {
+    border: none;               /* Removes the default border */
+    height: 1px;               /* Height of the line */
+    background-color: #e1e4e8;    /* Color of the line */
+    margin: 20px 0;            /* Space above and below the line */
 }
