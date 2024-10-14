@@ -110,7 +110,7 @@ func generateIndexPage(destDir string) error {
 
 	// Generate the index HTML content without a title and bullets
 	var indexContent strings.Builder
-	indexContent.WriteString("<!DOCTYPE html>\n<html>\n<head>\n</head>\n<body>\n")
+	indexContent.WriteString("<!DOCTYPE html>\n<html>\n<head>\n<link rel=\"stylesheet\" type=\"text/css\" href=\"style.css\">\n</head>\n<body>\n")
 	for _, link := range links {
 		// Remove the .html extension for display
 		nameWithoutExtension := strings.TrimSuffix(link, ".html")
