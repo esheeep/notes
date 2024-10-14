@@ -153,6 +153,23 @@ func processDirectory(srcDir, destDir string) error {
 	})
 }
 
+func copyStylesheet(path string) error {
+	// Read the stylesheet file
+	style, err := readFile(path)
+	if err != nil {
+		return fmt.Errorf("error reading stylesheet file %s: %v", path, err)
+	}
+
+	// Write the stylesheet to the target location
+	err = writeFile("public/style.css", style) // Capture the error from writeFile
+	if err != nil {
+		return fmt.Errorf("error writing to public/style.css: %v", err) // Handle the error
+	}
+
+	log.Printf("Copied stylesheet to public/style.css") // Log success
+	return nil                                          // Return nil if everything was successful
+}
+
 func main() {
 	srcDir := "md"      // Source directory containing .md files
 	destDir := "public" // Destination directory for HTML files
@@ -163,6 +180,10 @@ func main() {
 
 	if err := generateIndexPage(destDir); err != nil {
 		log.Fatalf("Error generating index page: %v", err)
+	}
+
+	if err := copyStylesheet("style.css"); err != nil {
+		log.Fatalf("Error copying stylesheet: %v", err)
 	}
 
 	fmt.Println("Markdown files converted to HTML successfully, and index page created.")
