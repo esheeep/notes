@@ -12,7 +12,7 @@
     <link rel="manifest" href="/site.webmanifest">
     <link rel="stylesheet"
           href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.10.0/styles/github.min.css">
-    <link rel="stylesheet" type="text/css" href="%s">
+    <link rel="stylesheet" type="text/css" href="../style.css">
     <style>
         pre {
             position: relative;
@@ -54,9 +54,49 @@
 <body>
 
 <div class="wrapper">
-    %s
+    <h1 id="dns">DNS</h1>
+
+<p>DNS is like a phone book it associate name with a number, in this case a domain name and an ip address.</p>
+
+<h2 id="email">Email</h2>
+
+<p>DNS is not meant to handle email verification but to do so there are 3 checks that the big email provider uses:</p>
+
+<ol>
+<li>SPF (Sender policy framework): list of domains and ips allowed to send on your behalf.</li>
+<li>DKIM (DomainKeys Identified Mail): Generate key or hash, mail server will look up signature dns.</li>
+<li>DMARC (Domain-based Message Authentication): A policy that states what happens when dkim and spf pass or fail. Action include quarantine, reject or none.</li>
+</ol>
+
+<p>Not all email provider will honor these checks but the big 3 do, Google, Microsoft and Yahoo.</p>
+
+<p><strong>Domain alignment</strong></p>
+
+<ul>
+<li>from</li>
+<li>reply-to</li>
+<li>x-sender-from</li>
+</ul>
+
+<p>ip address matches with the email domain.</p>
+
+<p><strong>Some issues to note with email marketing</strong></p>
+
+<ul>
+<li>Email marketing goal is to sender bulk emails on behalf of customers</li>
+<li>Currently doing SPF, not every customer is using DMARC that means not everybody is receiving the emails.</li>
+</ul>
+
+<p>Steps:</p>
+
+<ul>
+<li>Correct spf record</li>
+<li>Supply dkim hash</li>
+<li>Customer need to have a policy</li>
+</ul>
+
     <hr>
-    <a href="%s" class="back-link">back</a>
+    <a href="../index.html" class="back-link">back</a>
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>

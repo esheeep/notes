@@ -12,7 +12,7 @@
     <link rel="manifest" href="/site.webmanifest">
     <link rel="stylesheet"
           href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.10.0/styles/github.min.css">
-    <link rel="stylesheet" type="text/css" href="%s">
+    <link rel="stylesheet" type="text/css" href="../../style.css">
     <style>
         pre {
             position: relative;
@@ -54,9 +54,14 @@
 <body>
 
 <div class="wrapper">
-    %s
+    <h1 id="path-traversal">Path traversal</h1>
+
+<h2 id="null-byte-injection">Null-byte injection</h2>
+
+<p>Null-byte injection is a technique to bypass file inclusion when the application expects a file extension such as <code>.png</code>. Null byte characters (<code>$00</code>, <code>\x00</code>) are injected to terminate the string.</p>
+
     <hr>
-    <a href="%s" class="back-link">back</a>
+    <a href="../../index.html" class="back-link">back</a>
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>

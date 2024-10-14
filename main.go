@@ -116,13 +116,13 @@ func generateIndexPage(destDir string) error {
 
 	// Generate the index HTML content without a title and bullets
 	var indexContent strings.Builder
-	indexContent.WriteString("<!DOCTYPE html>\n<html>\n<head>\n<link rel=\"stylesheet\" type=\"text/css\" href=\"style.css\">\n</head>\n<body>\n")
+	indexContent.WriteString("<!DOCTYPE html>\n<html>\n<head>\n <meta charset=\"UTF-8\">\n<title>Notes</title\n<link rel=\"preconnect\" href=\"https://fonts.googleapis.com\">\n<link rel=\"preconnect\" href=\"https://fonts.gstatic.com\" crossorigin>\n<link href=\"https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap\" rel=\"stylesheet\">\n<link rel=\"apple-touch-icon\" sizes=\"180x180\" href=\"/apple-touch-icon.png\">\n<link rel=\"icon\" type=\"image/png\" sizes=\"32x32\" href=\"/favicon-32x32.png\">\n<link rel=\"icon\" type=\"image/png\" sizes=\"16x16\" href=\"/favicon-16x16.png\">\n<link rel=\"manifest\" href=\"/site.webmanifest\">\n<link rel=\"stylesheet\" type=\"text/css\" href=\"style.css\">\n</head>\n<body>\n<div class=\"wrapper\">\n")
 	for _, link := range links {
 		// Remove the .html extension for display
 		nameWithoutExtension := strings.TrimSuffix(link, ".html")
 		indexContent.WriteString(fmt.Sprintf("<a href=\"%s\">%s</a><br>\n", link, nameWithoutExtension))
 	}
-	indexContent.WriteString("</body>\n</html>")
+	indexContent.WriteString("</div></body>\n</html>")
 
 	// Write the index file
 	indexPath := filepath.Join(destDir, indexPageName)
@@ -159,21 +159,20 @@ func processDirectory(srcDir, destDir string) error {
 	})
 }
 
-func copyStylesheet(path string) error {
-	// Read the stylesheet file
-	style, err := readFile(path)
+func copyFileToPublic(path string) error {
+	file, err := os.ReadFile(path)
 	if err != nil {
-		return fmt.Errorf("error reading stylesheet file %s: %v", path, err)
+		return fmt.Errorf("error reading file %s: %v", path, err)
 	}
 
-	// Write the stylesheet to the target location
-	err = writeFile("public/style.css", style) // Capture the error from writeFile
+	newPath := "public/" + path
+
+	err = writeFile(newPath, file)
 	if err != nil {
-		return fmt.Errorf("error writing to public/style.css: %v", err) // Handle the error
+		return fmt.Errorf("error writing to public/%s: %v", path, err)
 	}
 
-	log.Printf("Copied stylesheet to public/style.css") // Log success
-	return nil                                          // Return nil if everything was successful
+	return nil
 }
 
 func main() {
@@ -188,9 +187,36 @@ func main() {
 		log.Fatalf("Error generating index page: %v", err)
 	}
 
-	if err := copyStylesheet("style.css"); err != nil {
+	if err := copyFileToPublic("style.css"); err != nil {
 		log.Fatalf("Error copying stylesheet: %v", err)
 	}
 
+	if err := copyFileToPublic("site.webmanifest"); err != nil {
+		log.Fatalf("Error copying site.webmanifest: %v", err)
+	}
+
+	if err := copyFileToPublic("favicon.ico"); err != nil {
+		log.Fatalf("Error copying favicon: %v", err)
+	}
+
+	if err := copyFileToPublic("favicon-32x32.png"); err != nil {
+		log.Fatalf("Error copying favicon: %v", err)
+	}
+
+	if err := copyFileToPublic("favicon-16x16.png"); err != nil {
+		log.Fatalf("Error copying favicon: %v", err)
+	}
+
+	if err := copyFileToPublic("apple-touch-icon.png"); err != nil {
+		log.Fatalf("Error copying favicon: %v", err)
+	}
+
+	if err := copyFileToPublic("apple-touch-icon.png"); err != nil {
+		log.Fatalf("Error copying favicon: %v", err)
+	}
+
+	if err := copyFileToPublic("android-chrome-192x192.png"); err != nil {
+		log.Fatalf("Error copying favicon: %v", err)
+	}
 	fmt.Println("Markdown files converted to HTML successfully, and index page created.")
 }

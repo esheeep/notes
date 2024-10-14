@@ -12,7 +12,7 @@
     <link rel="manifest" href="/site.webmanifest">
     <link rel="stylesheet"
           href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.10.0/styles/github.min.css">
-    <link rel="stylesheet" type="text/css" href="%s">
+    <link rel="stylesheet" type="text/css" href="style.css">
     <style>
         pre {
             position: relative;
@@ -54,9 +54,62 @@
 <body>
 
 <div class="wrapper">
-    %s
+    <h1 id="git">Git</h1>
+
+<pre><code class="language-bash">git config --global user.name &quot;Mona lisa&quot;
+</code></pre>
+
+<pre><code class="language-bash">git init
+git add .
+git commit -m &quot;First commit&quot;
+</code></pre>
+
+<pre><code class="language-bash"># remove .DS_Store file from GitHub that MAC OS X creates
+
+# find and remove .DS_Store
+find . -name .DS_Store -print0 | xargs -0 git rm -f --ignore-unmatch
+
+# create .gitignore file, if needed
+touch .gitignore
+echo .DS_Store &gt; .gitignore
+
+# push changes to GitHub
+git add .gitignore
+git commit -m '.DS_Store removed'
+git push origin master
+
+</code></pre>
+
+<pre><code class="language-bash"># Create a new branch from the top of the main branch.
+git checkout -b my-feature-branch main
+</code></pre>
+
+<pre><code class="language-xml"># Delete Local branch
+git branch -d &lt;branchName&gt;
+git branch -D &lt;branchName&gt;
+</code></pre>
+
+<pre><code class="language-bash"># Delete Remote Branch
+git push origin --delete &lt;branchName&gt;
+</code></pre>
+
+<h2 id="commit-messages">Commit Messages</h2>
+
+<ul>
+<li>✨ :sparkles: - New feature</li>
+<li>🔧 :wrench: - Fixes or improvements</li>
+<li>🐛 :bug: - Bug fixes</li>
+<li>📚 :books: - Documentation changes</li>
+<li>🔥 :fire: - Removing code or features</li>
+<li>✅ :white_check_mark: - Tests</li>
+<li>📝 :memo: - Writing or updating documentation</li>
+<li>🚀 :rocket: - Deployments</li>
+<li>📦 :package: - Package updates</li>
+<li>💄 :lipstick: - UI improvements</li>
+</ul>
+
     <hr>
-    <a href="%s" class="back-link">back</a>
+    <a href="index.html" class="back-link">back</a>
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
