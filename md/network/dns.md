@@ -1,7 +1,7 @@
-## DNS
+# DNS
 DNS is like a phone book it associate name with a number, in this case a domain name and an ip address.
 
-### Email
+## Email
 DNS is not meant to handle email verification but to do so there are 3 checks that the big email provider uses:
 
 1. SPF (Sender policy framework): list of domains and ips allowed to send on your behalf.
