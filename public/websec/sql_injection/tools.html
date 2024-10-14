@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Notes</title>
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.10.0/styles/github.min.css">
+    <link rel="stylesheet" type="text/css" href="/style.css">
+    <style>
+        pre {
+            position: relative;
+            padding: 16px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            overflow: auto;
+        }
+        .zeroclipboard-container {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            display: flex;
+            align-items: center;
+        }
+        .ClipboardButton {
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 4px;
+            display: flex;
+            align-items: center;
+            outline: none;
+        }
+        .ClipboardButton svg {
+            fill: #6a737d;
+            width: 16px;
+            height: 16px;
+            transition: fill 0.2s;
+        }
+        .ClipboardButton:hover svg {
+            fill: #0366d6; /* Change to blue on hover */
+        }
+        .color-fg-success {
+            display: none; /* Start with the check icon hidden */
+            fill: #28a745; /* Green for the check icon */
+        }
+    </style>
+</head>
+<body>
+<a href="/">back</a>
+<div class="markdown-body">
+    
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+<script>
+    // Add copy buttons to all <pre><code> blocks
+    document.querySelectorAll('pre code').forEach((block) => {
+        // Check if the button already exists to avoid duplication
+        if (!block.parentNode.querySelector('.zeroclipboard-container')) {
+            const buttonContainer = document.createElement('div');
+            buttonContainer.className = 'zeroclipboard-container';
+
+            const button = document.createElement('button');
+            button.className = 'ClipboardButton';
+            button.setAttribute('aria-label', 'Copy');
+            button.setAttribute('role', 'button');
+
+            // Create copy icon
+            const copyIcon = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+            copyIcon.setAttribute('aria-hidden', 'true');
+            copyIcon.className = 'copy-icon'; // Add a class for easier styling
+            copyIcon.innerHTML = `
+                <path d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 0 1 0 1.5h-1.5a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-1.5a.75.75 0 0 1 1.5 0v1.5A1.75 1.75 0 0 1 9.25 16h-7.5A1.75 1.75 0 0 1 0 14.25Z"></path>
+                <path d="M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0 1 14.25 11h-7.5A1.75 1.75 0 0 1 5 9.25Zm1.75-.25a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-7.5a.25.25 0 0 0-.25-.25Z"></path>
+            `;
+
+            // Create check icon
+            const checkIcon = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+            checkIcon.className = 'color-fg-success';
+            checkIcon.setAttribute('aria-hidden', 'true');
+            checkIcon.innerHTML = `
+                <path d="M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0Z"></path>
+            `;
+            checkIcon.style.display = 'none'; // Hide check icon initially
+
+            // Append icons to button
+            button.appendChild(copyIcon);
+            button.appendChild(checkIcon);
+            buttonContainer.appendChild(button);
+            block.parentNode.appendChild(buttonContainer);
+
+            button.addEventListener('click', () => {
+                const code = block.innerText;
+                navigator.clipboard.writeText(code).then(() => {
+                    // Hide copy icon and show check icon
+                    copyIcon.style.display = 'none';
+                    checkIcon.style.display = 'inline';
+
+                    // Show copy icon again after 1.5 seconds
+                    setTimeout(() => {
+                        copyIcon.style.display = 'inline';
+                        checkIcon.style.display = 'none';
+                    }, 1500);
+                });
+            });
+        }
+    });
+</script>
+
+</script>
+
+</body>
+</html>
