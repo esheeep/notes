@@ -31,8 +31,8 @@ flask --app main run
 ```
 File structure
 ```bash
-/my_flask_app
-    ├── app.py               # Your Flask application code
+/flaskproject
+    ├── main.py               # Your Flask application code
     ├── templates
     │   └── home.html        # Your HTML template
     └── static
