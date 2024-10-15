@@ -44,12 +44,12 @@ func writeFile(path string, data []byte) error {
 }
 
 // generateHTMLPage creates a complete HTML page from markdown content
-func generateHTMLPage(cssPath string, content string, backLink string) string {
+func generateHTMLPage(apptouchPath string, favicon32Path string, favicon16Path string, webmanifesstPath string, cssPath string, content string, backLink string) string {
 	template, err := readFile("template.html")
 	if err != nil {
 		log.Fatalf("Failed to read HTML template: %v", err)
 	}
-	return fmt.Sprintf(string(template), cssPath, content, backLink)
+	return fmt.Sprintf(string(template), apptouchPath, favicon32Path, favicon16Path, webmanifesstPath, cssPath, content, backLink)
 }
 
 // createDirectory creates a directory if it doesn't exist
@@ -76,10 +76,14 @@ func processFile(srcPath, destPath string) error {
 
 	// Calculate the relative path to the stylesheet
 	depth := strings.Count(filepath.Dir(destPath), string(os.PathSeparator))
+	apptouchPath := strings.Repeat("../", depth) + "apple-touch-icon.png"
+	favicon32Path := strings.Repeat("../", depth) + "favicon-32x32.png"
+	favicon16Path := strings.Repeat("../", depth) + "favicon-16x16.png"
+	webmanifestPath := strings.Repeat("../", depth) + "site.webmanifest"
 	cssPath := strings.Repeat("../", depth) + "style.css"
 	backLink := strings.Repeat("../", depth) + "index.html"
 
-	htmlContent := generateHTMLPage(cssPath, string(htmlData), backLink)
+	htmlContent := generateHTMLPage(apptouchPath, favicon32Path, favicon16Path, webmanifestPath, cssPath, string(htmlData), backLink)
 
 	destPath = strings.TrimSuffix(destPath, mdExtension) + htmlExtension
 	if err := writeFile(destPath, []byte(htmlContent)); err != nil {
@@ -116,7 +120,7 @@ func generateIndexPage(destDir string) error {
 
 	// Generate the index HTML content without a title and bullets
 	var indexContent strings.Builder
-	indexContent.WriteString("<!DOCTYPE html>\n<html>\n<head>\n <meta charset=\"UTF-8\">\n<title>Notes</title\n<link rel=\"preconnect\" href=\"https://fonts.googleapis.com\">\n<link rel=\"preconnect\" href=\"https://fonts.gstatic.com\" crossorigin>\n<link href=\"https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap\" rel=\"stylesheet\">\n<link rel=\"apple-touch-icon\" sizes=\"180x180\" href=\"/apple-touch-icon.png\">\n<link rel=\"icon\" type=\"image/png\" sizes=\"32x32\" href=\"/favicon-32x32.png\">\n<link rel=\"icon\" type=\"image/png\" sizes=\"16x16\" href=\"/favicon-16x16.png\">\n<link rel=\"manifest\" href=\"/site.webmanifest\">\n<link rel=\"stylesheet\" type=\"text/css\" href=\"style.css\">\n</head>\n<body>\n<div class=\"wrapper\">\n")
+	indexContent.WriteString("<!DOCTYPE html>\n<html>\n<head>\n <meta charset=\"UTF-8\">\n<title>Notes</title>\n<link rel=\"preconnect\" href=\"https://fonts.googleapis.com\">\n<link rel=\"preconnect\" href=\"https://fonts.gstatic.com\" crossorigin>\n<link href=\"https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap\" rel=\"stylesheet\">\n<link rel=\"apple-touch-icon\" sizes=\"180x180\" href=\"apple-touch-icon.png\">\n<link rel=\"icon\" type=\"image/png\" sizes=\"32x32\" href=\"favicon-32x32.png\">\n<link rel=\"icon\" type=\"image/png\" sizes=\"16x16\" href=\"favicon-16x16.png\">\n<link rel=\"manifest\" href=\"site.webmanifest\">\n<link rel=\"stylesheet\" type=\"text/css\" href=\"style.css\">\n</head>\n<body>\n<div class=\"wrapper\">\n<div class=\"header-icon\"><img src=\"favicon-32x32.png\"></div>\n")
 	for _, link := range links {
 		// Remove the .html extension for display
 		nameWithoutExtension := strings.TrimSuffix(link, ".html")
@@ -172,6 +176,7 @@ func copyFileToPublic(path string) error {
 		return fmt.Errorf("error writing to public/%s: %v", path, err)
 	}
 
+	log.Printf("Copy %s to %s", path, newPath)
 	return nil
 }
 

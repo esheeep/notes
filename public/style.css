@@ -177,3 +177,7 @@ hr {
     background-color: #e1e4e8;    /* Color of the line */
     margin: 20px 0;            /* Space above and below the line */
 }
+
+.header-icon{
+    margin-bottom: 10px;
+}
