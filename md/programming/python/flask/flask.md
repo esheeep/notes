@@ -29,3 +29,14 @@ Run flask application
 ```bash
 flask --app main run
 ```
+File structure
+```bash
+/my_flask_app
+    ├── app.py               # Your Flask application code
+    ├── templates
+    │   └── home.html        # Your HTML template
+    └── static
+        ├── style.css        # Your CSS file
+        └── script.js         # Your JavaScript file
+
+```
