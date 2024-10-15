@@ -6,13 +6,13 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
-    <link rel="apple-touch-icon" sizes="180x180" href="%s">
-    <link rel="icon" type="image/png" sizes="32x32" href="%s">
-    <link rel="icon" type="image/png" sizes="16x16" href="%s">
-    <link rel="manifest" href="%s">
+    <link rel="apple-touch-icon" sizes="180x180" href="../../apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="../../favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../../favicon-16x16.png">
+    <link rel="manifest" href="../../site.webmanifest">
     <link rel="stylesheet"
           href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.10.0/styles/github.min.css">
-    <link rel="stylesheet" type="text/css" href="%s">
+    <link rel="stylesheet" type="text/css" href="../../style.css">
     <style>
         pre {
             position: relative;
@@ -53,9 +53,28 @@
 </head>
 <body>
 <div class="wrapper">
-    %s
+    <h1 id="access-control">Access control</h1>
+
+<p>Access control is also known as authorisation defines what the use can do</p>
+
+<h2 id="types-of-access-control">Types of access control</h2>
+
+<ul>
+<li>Horizontal - check if the user or object have access to that account e.g. other users&rsquo; account</li>
+<li>Vertical - different level of access e.g. user have persmission to access admin functionality</li>
+<li>Context-dependent - if a user is allow to do something base on the state of the action e.g. adding an item when a stock is zero</li>
+</ul>
+
+<h2 id="attacks">Attacks</h2>
+
+<ul>
+<li>Forceful browsing</li>
+<li>IDOR/BOLA/BFLA</li>
+<li>Trusting user input (e.g. headers, parameters)</li>
+</ul>
+
     <hr>
-    <a href="%s" class="back-link">
+    <a href="../../index.html" class="back-link">
         <svg xmlns="http://www.w3.org/2000/svg"
              class="icon"
              fill="none"

