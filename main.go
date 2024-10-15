@@ -122,7 +122,7 @@ func generateIndexPage(destDir string) error {
 	var linksHTML strings.Builder
 	for _, link := range links {
 		nameWithoutExtension := strings.TrimSuffix(link, ".html")
-		linksHTML.WriteString(fmt.Sprintf("<a href=\"%s\">%s</a><br>\n", link, nameWithoutExtension))
+		linksHTML.WriteString(fmt.Sprintf("<div class=\"notes-link\"><a href=\"%s\">%s</a></div>\n", link, nameWithoutExtension))
 	}
 
 	// Load the template
