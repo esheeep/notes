@@ -3,13 +3,13 @@
 ## Setup
 Create virtual environment
 ```bash
-$ mkdir flaskproject
-$ cd flaskproject
-$ python3 -m venv .venv
+mkdir flaskproject
+cd flaskproject
+python3 -m venv .venv
 ```
 Activate environment
 ```bash
-$ source .venv/bin/activate   
+source .venv/bin/activate   
 ```
 Install flask
 ```bash
@@ -27,5 +27,5 @@ def hello_world():
 ```
 Run flask application
 ```bash
-$ flask --app main run
+flask --app main run
 ```
