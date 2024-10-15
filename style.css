@@ -197,6 +197,5 @@ hr {
 
 .search-bar input:focus {
     outline: none;
-
     user-select: text; /* Re-enable text selection on focus */
 }
