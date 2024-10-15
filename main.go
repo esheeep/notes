@@ -102,9 +102,9 @@ func generateIndexPage(destDir string) error {
 		if err != nil {
 			return fmt.Errorf("error accessing path %s: %v", path, err)
 		}
-		if !info.IsDir() && strings.HasSuffix(info.Name(), htmlExtension) {
+		if !info.IsDir() && strings.HasSuffix(info.Name(), ".html") {
 			// Skip the index.html file
-			if info.Name() == indexPageName {
+			if info.Name() == "index.html" {
 				return nil
 			}
 			// Create a relative link to the HTML file
@@ -118,19 +118,26 @@ func generateIndexPage(destDir string) error {
 		return err
 	}
 
-	// Generate the index HTML content without a title and bullets
-	var indexContent strings.Builder
-	indexContent.WriteString("<!DOCTYPE html>\n<html>\n<head>\n <meta charset=\"UTF-8\">\n<title>Notes</title>\n<link rel=\"preconnect\" href=\"https://fonts.googleapis.com\">\n<link rel=\"preconnect\" href=\"https://fonts.gstatic.com\" crossorigin>\n<link href=\"https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap\" rel=\"stylesheet\">\n<link rel=\"apple-touch-icon\" sizes=\"180x180\" href=\"apple-touch-icon.png\">\n<link rel=\"icon\" type=\"image/png\" sizes=\"32x32\" href=\"favicon-32x32.png\">\n<link rel=\"icon\" type=\"image/png\" sizes=\"16x16\" href=\"favicon-16x16.png\">\n<link rel=\"manifest\" href=\"site.webmanifest\">\n<link rel=\"stylesheet\" type=\"text/css\" href=\"style.css\">\n</head>\n<body>\n<div class=\"wrapper\">\n<div class=\"header-icon\"><img src=\"favicon-32x32.png\"></div>\n")
+	// Generate links HTML
+	var linksHTML strings.Builder
 	for _, link := range links {
-		// Remove the .html extension for display
 		nameWithoutExtension := strings.TrimSuffix(link, ".html")
-		indexContent.WriteString(fmt.Sprintf("<a href=\"%s\">%s</a><br>\n", link, nameWithoutExtension))
+		linksHTML.WriteString(fmt.Sprintf("<a href=\"%s\">%s</a><br>\n", link, nameWithoutExtension))
 	}
-	indexContent.WriteString("</div></body>\n</html>")
 
-	// Write the index file
-	indexPath := filepath.Join(destDir, indexPageName)
-	return writeFile(indexPath, []byte(indexContent.String()))
+	// Load the template
+	templateContent, err := readFile("index_template.html")
+
+	if err != nil {
+		log.Fatalf("Failed to read index HTML template: %v", err)
+	}
+	log.Printf("Sucessfull read index HTML template: %s")
+	// Inject links into the template
+	finalContent := strings.Replace(string(templateContent), "{{ links }}", linksHTML.String(), 1)
+
+	// Write the final index file
+	indexPath := filepath.Join(destDir, "index.html")
+	return writeFile(indexPath, []byte(finalContent))
 }
 
 // processDirectory processes the source directory and mirrors the structure to the destination directory

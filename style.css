@@ -177,3 +177,26 @@ hr {
     background-color: #e1e4e8;    /* Color of the line */
     margin: 20px 0;            /* Space above and below the line */
 }
+
+.search-bar {
+    position: relative;
+    width: 300px; /* Reduced width for a smaller bar */
+}
+
+.search-bar input {
+    width: 100%;
+    padding: 8px 12px; /* Smaller padding */
+    border: 1px solid #d0d7de;
+    border-radius: 6px;
+    font-size: 12px; /* Adjusted text size */
+    background-color: #ffffff;
+    transition: all 0.2s ease-in-out;
+    user-select: none; /* Disable text selection */
+    margin: 35px auto 15px auto;
+}
+
+.search-bar input:focus {
+    outline: none;
+
+    user-select: text; /* Re-enable text selection on focus */
+}
