@@ -220,7 +220,7 @@ Try to find new http endpoints.
 `location.*`
 - `location.assign`
 - `location.replace`
-- `search on vscode `location\.``
+search on vscode `location\.`
 `window.open`
 `cookies`
 `localstorage`/`sessionstorage` - can be source and sink
