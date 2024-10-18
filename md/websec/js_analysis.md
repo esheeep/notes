@@ -122,30 +122,8 @@ Download the js from the files
 ```bash
 wget -i output.txt
 ```
-Remember to download the main files as well{
-path: "signin",
-data: { title: "Sign In" },
-component: Es,
-resolve: {
-addMetaData: (Ee, Y) => {
-const K = (0, t.f3M)(Ln.VU);
-return (0, t.f3M)(g.Aq)
-.isPasskeySupported()
-.pipe(
-(0, ss.b)((Ue) => {
-K.pageViewMetaData = {
-uiFeatures: [
-{
-ui_features_element_names: `Fido Capability:${Ue}`,
-ui_features_product_id: `Fido Capability:${Ue}`,
-},
-],
-};
-})
-);
-},
-},
-},
+Remember to download the main files as well
+
 2. Beautify the js
 Use [pprettier](https://github.com/microsoft/parallel-prettier)
 
@@ -209,7 +187,7 @@ Then you can see what other functions get called.
 If you can trigger visiting a pacific endpoint and  making a cookie get set.
 Look for if the structure somewhere else, understand the patterns that is used within the application.
 
-keywords: `queryParams`, `headers`, `cookie` 
+keywords: `queryParams`, `headers`, `cookie`, `router`, `sessionStorage`
 
 Look at the path you're already at.
 Find it in the code. Where that path is being defined.
@@ -218,9 +196,50 @@ Notice that structure. Use that structure to identify all the client-side paths.
 In the js looks for something big like classes and throw it in the search. 
 Set a breakpoint and try to correlate between the codes. 
 
+### Identifying server paths
+Find apis and http verbs.
+Note a server side paths in a request that being sent to the server side.
+Then find that text in the actual code. 
+Set the point and figure out what js is setting the server url.
+
+Try to understand the structure of API endpoints.
+
+#### HTTP verbs
+Are they using `fetch` or `httpClient`
+`post`, `get`, `put`
+
+Also use linkfinder, jsluice to find endpoints that you might miss.
+
+#### Monitoring
+Find a pattern with the keywords and write a regex to search for that pattern.
+Try to find new http endpoints.  
+
+## Sources & sinks
+### Sources
+`URLSearchParams`
+`location.*`
+- location.assign
+- location.replace
+- `search on vscode `location\.``
+
+### Sinks
+`windows.location.href` always check CSP - or some location relate sink
+use js uri to direct to that
+
+
+    
+Examples
+Got XSS on a site use that to set cookie 
+The cookie is set in a header - which can be used as part of the auth session
+Login session is associated with a cookie, then prompt to do 2FA, if you can control the cookie, 
+you can potentially hijack half auth session and sometimes there are endpoint you can hit with half off
+like changing your email and do something funky. 
+
 ## Useful links
 [Reversing and Tooling a Signed Request Hash in Obfuscated JavaScript](https://buer.haus/2024/01/16/reversing-and-tooling-a-signed-request-hash-in-obfuscated-javascript/)
+
 [jsluice](https://github.com/BishopFox/jsluice)
+
 Parse js files and pulling out interesting strings.
 No need to use this tool, it's better to assess the files manually. 
 
