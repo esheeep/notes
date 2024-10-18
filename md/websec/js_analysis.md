@@ -113,6 +113,7 @@ Open faced iframe sandwich
 Most you can get out of tracking files is `window.location.href` leak potentially.
 
 ## Analysis
+1. Download all the js files
 Save js urls
 ```bash
 node lazyAssFiles.js > output.txt
@@ -121,5 +122,17 @@ Download the js from the files
 ```bash
 wget -i output.txt
 ```
+2. Beautify the js
+Use [pprettier](https://github.com/microsoft/parallel-prettier)
+
+```bash
+pprettier --write *.js*
+```
+
+
+
+
+
+
 
 
