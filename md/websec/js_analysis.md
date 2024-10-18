@@ -218,15 +218,26 @@ Try to find new http endpoints.
 ### Sources
 `URLSearchParams`
 `location.*`
-- location.assign
-- location.replace
+- `location.assign`
+- `location.replace`
 - `search on vscode `location\.``
+`window.open`
+`cookies`
+`localstorage`/`sessionstorage` - can be source and sink
 
 ### Sinks
 `windows.location.href` always check CSP - or some location relate sink
-use js uri to direct to that
+use js uri to direct to that 
+`innerhtml`
+`.html`
+`unsafe templating`
+`dangerouslysethtml`
+`createElement (iframe, a, script, etc)`
 
-
+Example
+Set a query parameter in the url, query get embedded into the script source dynamically. 
+Then break out of the query parameter value context, define another query parameter, 
+that query parameter with a specific marketing url allow insert to js to a dynamically created js. 
     
 Examples
 Got XSS on a site use that to set cookie 
@@ -234,6 +245,23 @@ The cookie is set in a header - which can be used as part of the auth session
 Login session is associated with a cookie, then prompt to do 2FA, if you can control the cookie, 
 you can potentially hijack half auth session and sometimes there are endpoint you can hit with half off
 like changing your email and do something funky. 
+
+## JS Adjacents
+Feature Flags
+`function isFeatureFlagEnabled(){...}`
+M&R rule: 
+- `Response Body`
+- `isFeatureFlagEnabled(){` 
+- `isFeatureFlagEnabled(){return true;`
+
+Create an alert for the Feature Flag that is being pushed.
+
+## Dynamic wordlist generation
+Parse doc, parse js files use words from those files.
+## Monitoring
+Use python script + regex with crontab
+Request page every hour.
+
 
 ## Useful links
 [Reversing and Tooling a Signed Request Hash in Obfuscated JavaScript](https://buer.haus/2024/01/16/reversing-and-tooling-a-signed-request-hash-in-obfuscated-javascript/)
