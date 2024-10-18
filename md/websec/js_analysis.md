@@ -209,10 +209,17 @@ Then you can see what other functions get called.
 If you can trigger visiting a pacific endpoint and  making a cookie get set.
 Look for if the structure somewhere else, understand the patterns that is used within the application.
 
+keywords: `queryParams`, `headers`, `cookie` 
 
+Look at the path you're already at.
+Find it in the code. Where that path is being defined.
+Notice that structure. Use that structure to identify all the client-side paths.
 
+In the js looks for something big like classes and throw it in the search. 
+Set a breakpoint and try to correlate between the codes. 
 
-
+## Useful links
+[Reversing and Tooling a Signed Request Hash in Obfuscated JavaScript](https://buer.haus/2024/01/16/reversing-and-tooling-a-signed-request-hash-in-obfuscated-javascript/)
 [jsluice](https://github.com/BishopFox/jsluice)
 Parse js files and pulling out interesting strings.
 No need to use this tool, it's better to assess the files manually. 
