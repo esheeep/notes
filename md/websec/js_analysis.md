@@ -100,4 +100,26 @@ Particularly references to api endpoints.
 
 Note: this is more applicable to single page loaded apps. 
 
+### Vendor libraries
+Don't ignore vendor libraries
+New relic has alot of js files and they have their own bug bounty program
+
+### Third party
+Can you pivot it into xss? 
+If you see an iframe from a third party, can you pop an XSS on that iframe and use the trust relationship between the iframe and the main page to pop an xss on the main page. 
+Open faced iframe sandwich
+
+### Tracking
+Most you can get out of tracking files is `window.location.href` leak potentially.
+
+## Analysis
+Save js urls
+```bash
+node lazyAssFiles.js > output.txt
+```
+Download the js from the files
+```bash
+wget -i output.txt
+```
+
 
