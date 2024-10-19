@@ -3,11 +3,22 @@
 Attack vector
 User get added to one organisation, then assign admin privilages, get added to another organisation.
 
-caido
+# caido
 filtering out requests
 ```bash
 req.host.ncont:"f-log" and req.host.ncont:"gnar"
 ```
+searching in the responses
+```bash
+resp.raw.cont:"redirect_location"
+```
+conditioning match and replace to validate theory
+e.g. https://app.grammarly.com  replace javascript:alert(1)
+condition: `req.path.cont:"/redirect/way`
+
+# gau
+
+
 
 Interesting to look at:
 post request with a list, response with json with more information.
