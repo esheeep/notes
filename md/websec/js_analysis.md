@@ -25,11 +25,8 @@ but it can hide key JS files that might be critical to your analysis.
 These files are loaded dynamically and often contain important functionality. They're typically identified by a unique entity name followed by a hash.
 Example:
 
-```javascript
-<script src="runtime.d8ba6c6599cb3a9a.js" type="module"></script>
-<script src="polyfills.244c7c2108cacf1c.js" type="module">
-</script><script src="main.0b4c369979ae0e88.js" type="module"></script>
-```
+
+
 
 You might also see file paths like: 
 ```bash
