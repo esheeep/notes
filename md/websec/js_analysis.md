@@ -4,8 +4,9 @@
 When identifying JavaScript (JS) files, it's essential to have a solid understanding
 of the application and its functionality before diving in.
 
-**Script Tags**: Pay close attention to the <script> tags in the HTML as they often 
+**Script Tags**: Pay close attention to the `<script>` tags in the HTML as they often 
 contain important references to JS file
+
 **Hidden Functionalities**: Be mindful that JS files may reference hidden functionalities, 
 such as API endpoints, that aren't immediately visible.
 
@@ -177,13 +178,12 @@ triggered as part of the page load.
 By tracing the constructor, you can:
 - Understand what initial setup happens when the route is accessed.
 - See if there are any functions related to cookies, query parameters, or other important actions triggered by visiting the route.
-```javascript
-{ path: "success", component: v.DN },
-{ path: "not-now", component: v.DN },
-{ path: "no-mobile", component: v.DN },
-{ path: "snag", component: v.xT },
-```
 
+4. Analyzing Client-Side Paths
+Client-side URLs (routes) are often not reflective of server-side routes. 
+They are part of the front-end routing system (e.g., React Router, Angular Router)
+and dictate what happens on the client without necessarily making a server request.
+- **Redirecting and Triggering Code Paths**: Analyze how redirecting to certain client-side URLs triggers different code paths. For example, visiting /signin might set certain cookies or initiate session storage depending on the client-side logic.
 
 ### Identifying server paths
 Find apis and http verbs.
