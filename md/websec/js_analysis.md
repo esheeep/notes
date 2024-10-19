@@ -1,33 +1,42 @@
 # JavaScript Analysis
 
 ## Identifying JS files
-Only after you understand the application and know what you're dealing with. 
+When identifying JavaScript (JS) files, it's essential to have a solid understanding
+of the application and its functionality before diving in.
 
-### Script tag
-Stupid code
+**Script Tags**: Pay close attention to the <script> tags in the HTML as they often 
+contain important references to JS file
+**Hidden Functionalities**: Be mindful that JS files may reference hidden functionalities, 
+such as API endpoints, that aren't immediately visible.
+
+Example of stupid code
 ```javascript
 if (window.location.href.includes('verified.capitalone'))
 ```
-Each time you see includes and something you can control
+Whenever you see the includes method checking part of the URL, especially if you can control or influence the URL,
+investigate it for potential vulnerabilities.
 
-Don't ignore the js in the script tag.
+### App relevant
+#### Lazy loaded js
+Lazy loading is a method where JS files are loaded only when needed, instead of all at once. This technique is often used to optimize performance, 
+but it can hide key JS files that might be critical to your analysis.
 
-### Lazy loaded js
-Format of a webpack, has name of a specific entity and a hash after it, which is very common. 
+These files are loaded dynamically and often contain important functionality. They're typically identified by a unique entity name followed by a hash.
+Example:
 ```javascript
-<script src="runtime.d8ba6c6599cb3a9a.js" type="module"></script><script src="polyfills.244c7c2108cacf1c.js" type="module"></script><script src="main.0b4c369979ae0e88.js" type="module"></script>
+<script src="runtime.d8ba6c6599cb3a9a.js" type="module"></script>
+<script src="polyfills.244c7c2108cacf1c.js" type="module">
+</script><script src="main.0b4c369979ae0e88.js" type="module"></script>
 ```
-Usually looks at main and app js but also look at runtime js as well. 
+You might also see file paths like: 
+```bash
+/auth/assets/js/smartBanner.js
+/auth/runtime.d8ba6c6599cb3a9a.js
+```
+These paths indicate multiple segments of JS files within the application.
 
-Look at the path. 
-for example
-`/auth/assets/js/smartBanner.js`
-`/auth/runtime.d8ba6c6599cb3a9a.js`
+Lazy-loaded files are often found in runtime.js and are commonly identifiable by the letter "u" in their structure.
 
-Means there are multiple segments of js files in this application that I need to be aware of.
-
-In the js you can find lazy loaded js files, the format is always similar to the below code, identified with a `u`. 
-Most of the time the lazy loaded files are in runtime.js. 
 ```javascript
 u = e => e + '.' + {
       76: 'd82157288b70d9fa',
@@ -47,6 +56,8 @@ u = e => e + '.' + {
     }
     [e] + '.js'
 ```
+Lazy-loaded JS files may contain hidden functionalities that aren't immediately visible in the main JS files. Make sure to examine these to avoid missing key vulnerabilities.
+
 Script to generate the js files
 ```javascript
 prefix = "https://verified.capitalone.com/auth/";
@@ -100,101 +111,79 @@ Particularly references to api endpoints.
 
 Note: this is more applicable to single page loaded apps. 
 
-### Vendor libraries
-Don't ignore vendor libraries
-New relic has alot of js files and they have their own bug bounty program
+#### Vendor libraries
+**Don't Overlook Vendor Libraries**: Even third-party vendor libraries, like New Relic, often have multiple JS files. 
+It's important to examine them as they may contain exploitable vulnerabilities. Some vendors, like New Relic, even run their own bug bounty programs.
 
 ### Third party
-Can you pivot it into xss? 
-If you see an iframe from a third party, can you pop an XSS on that iframe and use the trust relationship between the iframe and the main page to pop an xss on the main page. 
-Open faced iframe sandwich
+**Can you pivot it to xss?**
+When you encounter third-party JS, especially if it’s served within an iFrame, check if you can exploit Cross-Site Scripting (XSS) vulnerabilities. 
+An example attack is using the trust relationship between an iFrame and the main page to inject an XSS on both.
+Like “open-faced iFrame sandwich” attack.
 
-### Tracking
-Most you can get out of tracking files is `window.location.href` leak potentially.
+#### Steal relevant info
+When analyzing JS files, always consider whether they expose sensitive information. 
+Tracking scripts can sometimes leak information, such as `window.location.href`, 
+especially if the URL is included in logs or passed to third-party services. 
+Investigate any includes statements in JS code to see if they can be controlled and lead to information leakage.
 
 ## Analysis
-1. Download all the js files
-Save js urls
+### Beautification
+1. Download JS files
+Run the following command to get the list of JS files:
 ```bash
 node lazyAssFiles.js > output.txt
 ```
-Download the js from the files
+Download all the JS files:
 ```bash
 wget -i output.txt
 ```
-Remember to download the main files as well
+Don’t forget to include the main files.
 
-2. Beautify the js
+2. Beautify the JS files
 Use [pprettier](https://github.com/microsoft/parallel-prettier)
 
 ```bash
 pprettier --write *.js*
 ```
-Then `code .` to open VS code and do the analysis there.
-
+After beautifying the files, open them in VS Code:
+```bash
+code .
+```
 ### Identifying client-side path
-Search for `path: "`
+1. Search for known urls
+   Start by searching for paths in the JavaScript files that correspond to known URLs. For example, if you have a URL like:
+```bash
+https://verified.capitalone.com/auth/signin
+```
+You would search for the path definition in the JavaScript files, using the pattern:
+```bash
+path: "signin"
+```
+This helps you locate where the client-side route is defined.
+
+2. Component Loading and Constructor
+After finding the path definition, the next step is to identify the component associated with that path. For example:
+```bash
+{ path: "signin", component: SomeComponent }
+```
+The component (`SomeComponent` in this case) often has a class definition with a constructor function. 
+The constructor is the first function that runs when the component is instantiated.
+
+3. Setting Breakpoints in the Constructor
+Set a breakpoint at the constructor of the component class and visit the URL (e.g., `/signin`). 
+This allows you to observe the behavior of the component and see which other functions get 
+triggered as part of the page load.
+By tracing the constructor, you can:
+- Understand what initial setup happens when the route is accessed.
+- See if there are any functions related to cookies, query parameters, or other important actions triggered by visiting the route.
 ```javascript
 { path: "success", component: v.DN },
 { path: "not-now", component: v.DN },
 { path: "no-mobile", component: v.DN },
 { path: "snag", component: v.xT },
 ```
-Search for known paths 
-e.g `https://verified.capitalone.com/auth/signin`
-search for `path: "signin"`
-takes to this code
-```javascript
-{
-    path: "signin",
-        data: { title: "Sign In" },
-    component: Es,
-        resolve: {
-        addMetaData: (Ee, Y) => {
-            const K = (0, t.f3M)(Ln.VU);
-            return (0, t.f3M)(g.Aq)
-                .isPasskeySupported()
-                .pipe(
-                    (0, ss.b)((Ue) => {
-                        K.pageViewMetaData = {
-                            uiFeatures: [
-                                {
-                                    ui_features_element_names: `Fido Capability:${Ue}`,
-                                    ui_features_product_id: `Fido Capability:${Ue}`,
-                                },
-                            ],
-                        };
-                    })
-                );
-        },
-    },
-},
-```
-How to find the structure for each individual application? Reverse engineer the client-side paths using the js files
-You need to read the code until you find a unique string e.g. `other-products` to help find where the path is defined in the files.
-From there you can get the idea how client-side path is structured.
-This is mainly to single side page.
 
-Client-side urls are routes that aren't reflective of serverside routes. 
-
-Need to understand what code path you can trigger on the client side by redirecting the user to that url.
-
-Path with a component that is a class,then theres a constructor. 
-Put a break point at the constructor and visit the page. 
-The constructor is the first thing going to call when the component class is instantiated. 
-Then you can see what other functions get called. 
-
-If you can trigger visiting a pacific endpoint and  making a cookie get set.
-Look for if the structure somewhere else, understand the patterns that is used within the application.
-
-keywords: `queryParams`, `headers`, `cookie`, `router`, `sessionStorage`
-
-Look at the path you're already at.
-Find it in the code. Where that path is being defined.
-Notice that structure. Use that structure to identify all the client-side paths.
-
-In the js looks for something big like classes and throw it in the search. 
-Set a breakpoint and try to correlate between the codes. 
 
 ### Identifying server paths
 Find apis and http verbs.
