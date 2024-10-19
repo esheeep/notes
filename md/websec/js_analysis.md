@@ -11,7 +11,7 @@ contain important references to JS file
 such as API endpoints, that aren't immediately visible.
 
 Example of stupid code
-```javascript
+```javascript 
 if (window.location.href.includes('verified.capitalone'))
 ```
 Whenever you see the includes method checking part of the URL, especially if you can control or influence the URL,
@@ -24,11 +24,13 @@ but it can hide key JS files that might be critical to your analysis.
 
 These files are loaded dynamically and often contain important functionality. They're typically identified by a unique entity name followed by a hash.
 Example:
+
 ```javascript
 <script src="runtime.d8ba6c6599cb3a9a.js" type="module"></script>
 <script src="polyfills.244c7c2108cacf1c.js" type="module">
 </script><script src="main.0b4c369979ae0e88.js" type="module"></script>
 ```
+
 You might also see file paths like: 
 ```bash
 /auth/assets/js/smartBanner.js
@@ -60,6 +62,7 @@ u = e => e + '.' + {
 Lazy-loaded JS files may contain hidden functionalities that aren't immediately visible in the main JS files. Make sure to examine these to avoid missing key vulnerabilities.
 
 Script to generate the js files
+
 ```javascript
 prefix = "https://verified.capitalone.com/auth/";
 functionName = "u";
@@ -103,8 +106,8 @@ for (var i = 0; i < numbers.length; i++) {
 
 // Print the output
 console.log(output);
-
 ```
+
 Replace the prefix and the data.
 
 There can be a lot of hidden functionalities that you don't often have.
@@ -273,7 +276,7 @@ Create an alert system to track when a specific feature flag is being activated 
 This will help you stay informed about changes or updates to feature flag statuses in the application
 
 ## Dynamic wordlist generation
-se automation scripts to scan and extract relevant words, such as parameter names, function names, and keywords, from the codebase and documentation. 
+Parse automation scripts to scan and extract relevant words, such as parameter names, function names, and keywords, from the codebase and documentation. 
 This will help in identifying important terms for monitoring or further analysis.
 ## Monitoring
 **Python Script + Regex**: Write a Python script that uses regular expressions (regex) to search for specific patterns in the codebase, such as feature flags, API calls, or user-controlled data.
