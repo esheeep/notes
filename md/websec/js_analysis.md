@@ -14,21 +14,21 @@ Example of stupid code
 ```javascript 
 if (window.location.href.includes('verified.capitalone'))
 ```
-Whenever you see the includes method checking part of the URL, especially if you can control or influence the URL,
-investigate it for potential vulnerabilities.
-
 ### App relevant
 #### Lazy loaded js
-Lazy loading is a method where JS files are loaded only when needed, instead of all at once. This technique is often used to optimize performance, 
+Lazy loading is a method where JS files are loaded only when needed, instead of all at once. This technique is often used to optimize performance,
 but it can hide key JS files that might be critical to your analysis.
 
 These files are loaded dynamically and often contain important functionality. They're typically identified by a unique entity name followed by a hash.
 Example:
 
+```javascript
+<script src="runtime.d8ba6c6599cb3a9a.js" type="module"></script>
+<script src="polyfills.244c7c2108cacf1c.js" type="module">
+</script><script src="main.0b4c369979ae0e88.js" type="module"></script>
+```
 
-
-
-You might also see file paths like: 
+You might also see file paths like:
 ```bash
 /auth/assets/js/smartBanner.js
 /auth/runtime.d8ba6c6599cb3a9a.js
@@ -108,34 +108,37 @@ console.log(output);
 Replace the prefix and the data.
 
 There can be a lot of hidden functionalities that you don't often have.
-Particularly references to api endpoints. 
+Particularly references to api endpoints.
 
-Note: this is more applicable to single page loaded apps. 
+Note: this is more applicable to single page loaded apps.
 
 #### Vendor libraries
-**Don't Overlook Vendor Libraries**: Even third-party vendor libraries, like New Relic, often have multiple JS files. 
+**Don't Overlook Vendor Libraries**: Even third-party vendor libraries, like New Relic, often have multiple JS files.
 It's important to examine them as they may contain exploitable vulnerabilities. Some vendors, like New Relic, even run their own bug bounty programs.
 
 ### Third party
 **Can you pivot it to xss?**
-When you encounter third-party JS, especially if it’s served within an iFrame, check if you can exploit Cross-Site Scripting (XSS) vulnerabilities. 
+When you encounter third-party JS, especially if it’s served within an iFrame, check if you can exploit Cross-Site Scripting (XSS) vulnerabilities.
 An example attack is using the trust relationship between an iFrame and the main page to inject an XSS on both.
 Like “open-faced iFrame sandwich” attack.
 
 #### Steal relevant info
-When analyzing JS files, always consider whether they expose sensitive information. 
-Tracking scripts can sometimes leak information, such as `window.location.href`, 
-especially if the URL is included in logs or passed to third-party services. 
+When analyzing JS files, always consider whether they expose sensitive information.
+Tracking scripts can sometimes leak information, such as `window.location.href`,
+especially if the URL is included in logs or passed to third-party services.
 Investigate any includes statements in JS code to see if they can be controlled and lead to information leakage.
 
-## Analysis
+# Analysis
 ### Beautification
 1. Download JS files
 Run the following command to get the list of JS files:
+
 ```bash
 node lazyAssFiles.js > output.txt
 ```
+
 Download all the JS files:
+
 ```bash
 wget -i output.txt
 ```
@@ -147,49 +150,61 @@ Use [pprettier](https://github.com/microsoft/parallel-prettier)
 ```bash
 pprettier --write *.js*
 ```
+
 After beautifying the files, open them in VS Code:
 ```bash
 code .
 ```
 ### Identifying client-side path
-1. Search for known urls
-   Start by searching for paths in the JavaScript files that correspond to known URLs. For example, if you have a URL like:
+**Search for known urls** 
+
+Start by searching for paths in the JavaScript files that correspond to known URLs. For example, if you have a URL like:
 ```bash
 https://verified.capitalone.com/auth/signin
 ```
+
 You would search for the path definition in the JavaScript files, using the pattern:
+
 ```bash
 path: "signin"
 ```
+
 This helps you locate where the client-side route is defined.
 
-2. Component Loading and Constructor
+**Component Loading and Constructor**
+
 After finding the path definition, the next step is to identify the component associated with that path. For example:
+
 ```bash
 { path: "signin", component: SomeComponent }
 ```
-The component (`SomeComponent` in this case) often has a class definition with a constructor function. 
+
+The component (`SomeComponent` in this case) often has a class definition with a constructor function.
 The constructor is the first function that runs when the component is instantiated.
 
-3. Setting Breakpoints in the Constructor
-Set a breakpoint at the constructor of the component class and visit the URL (e.g., `/signin`). 
-This allows you to observe the behavior of the component and see which other functions get 
+**Setting Breakpoints in the Constructor**
+
+Set a breakpoint at the constructor of the component class and visit the URL (e.g., `/signin`).
+This allows you to observe the behavior of the component and see which other functions get
 triggered as part of the page load.
 By tracing the constructor, you can:
 - Understand what initial setup happens when the route is accessed.
 - See if there are any functions related to cookies, query parameters, or other important actions triggered by visiting the route.
 
-4. Analyzing Client-Side Paths
-Client-side URLs (routes) are often not reflective of server-side routes. 
+**Analyzing Client-Side Paths**
+
+Client-side URLs (routes) are often not reflective of server-side routes.
 They are part of the front-end routing system (e.g., React Router, Angular Router)
 and dictate what happens on the client without necessarily making a server request.
-- **Redirecting and Triggering Code Paths**: Analyze how redirecting to certain client-side URLs triggers different code paths. 
+- **Redirecting and Triggering Code Paths**: Analyze how redirecting to certain client-side URLs triggers different code paths.
 - For example, visiting `/signin` might set certain cookies or initiate session storage depending on the client-side logic.
-5. Understanding the Structure of Path Definitions
-Look at the structure of the route where you're currently located. 
+
+**Understanding the Structure of Path Definitions**
+Look at the structure of the route where you're currently located.
 For example, if you're on `/signin`, find where that path is defined in the code. Take note of how that path is structured and used.
 Use that pattern to identify other client-side paths. Many applications follow a consistent structure for defining their routes, components, and behavior.
-6. Pattern Recognition
+
+**Pattern Recognition**
 As you analyze the JavaScript code, you will notice common patterns. For example, paths with associated components may have:
 - Class definitions
 - Constructors that initialize data
@@ -203,20 +218,21 @@ Search for keywords such as:
 - `sessionStorage`
 
 These will help you understand what kind of data is being processed when navigating between routes.
-7. Look for Big Classes or Methods
-In large JavaScript files, it can be helpful to search for big classes or methods related to routing and components. 
+
+**Look for Big Classes or Methods**
+In large JavaScript files, it can be helpful to search for big classes or methods related to routing and components.
 Once you find them, set breakpoints and try to correlate how different parts of the code work together.
 For example, large classes might handle routing, UI updates, and state management, making them good targets for deeper analysis.
 
-8. Triggering Cookie Setting
+**Triggering Cookie Setting**
 If you can trigger a specific endpoint (e.g., visiting `/signin`), and it sets a cookie, analyze how and where that cookie is being set.
 Look for similar patterns in other parts of the application to see if there are other paths that trigger cookies, modify session data, or interact with browser storage.
 
 ### Identifying server paths
 #### API endpoints
-Look for API endpoints by tracking HTTP requests made to the server. Focus on identifying server-side paths (e.g., `/api/login`, `/auth/verify`) 
+Look for API endpoints by tracking HTTP requests made to the server. Focus on identifying server-side paths (e.g., `/api/login`, `/auth/verify`)
 that are being hit when requests are sent from the client.
-Once you find a server-side path, search for that path in the JavaScript code to locate where it is being set. 
+Once you find a server-side path, search for that path in the JavaScript code to locate where it is being set.
 This will help you understand how the client triggers requests to the server.
 Identify how the API endpoints are structured to get a full picture of the app’s communication with the server.
 #### HTTP verbs
@@ -225,13 +241,13 @@ Look for common HTTP methods like:
 - `POST`: For creating or sending data.
 - `GET`: For retrieving data.
 - `PUT`: For updating data.
-These methods help you understand what kind of data is being sent to and retrieved from the server.
+  These methods help you understand what kind of data is being sent to and retrieved from the server.
 
 **Tools for endpoint discovery**
 - Use tools such as LinkFinder or JSluice to discover hidden or less obvious endpoints you might have missed in manual analysis.
 
 **Monitoring for New Endpoints**
-Develop a pattern based on keywords associated with API calls (e.g., fetch, url, axios), and use regular expressions (regex) to search for them in the codebase. 
+Develop a pattern based on keywords associated with API calls (e.g., `fetch`, `url`, `axios`), and use regular expressions (regex) to search for them in the codebase.
 This can help you spot new or undocumented API endpoints.
 
 ## Sources & sinks
@@ -245,9 +261,9 @@ These are areas in the code where user-controlled data can enter, potentially le
   - Search for `location\.` in the code to find where the location object is used.
 - `window.open`: User-controlled URL when opening a new window or tab via JavaScript.
 - **Cookies**: Data stored in cookies can be manipulated by users if cookies are not secured properly.
-- **LocalStorage/SessionStorage**: Users can interact with or manipulate stored data in the browser's localStorage or sessionStorage. 
-These can act as both sources (retrieving data) and sinks (storing data).
-  By identifying user-controlled data, you can trace how this data is being handled and whether there are any 
+- **LocalStorage/SessionStorage**: Users can interact with or manipulate stored data in the browser's localStorage or sessionStorage.
+  These can act as both sources (retrieving data) and sinks (storing data).
+  By identifying user-controlled data, you can trace how this data is being handled and whether there are any
 - potential risks (e.g., injection attacks, XSS) due to insufficient validation or sanitization.
 
 ### Sinks
@@ -265,15 +281,15 @@ Feature flags control the activation of certain features based on conditions. To
 
 ### Monitoring and Response
 - **Response Body**: Monitor the response body to see if any feature flag details are being sent or controlled by the server.
-- **Feature Flag Patterns**: 
+- **Feature Flag Patterns**:
   - `isFeatureFlagEnabled(){`: This checks if a feature flag function is present and what conditions it evaluates.
   - `isFeatureFlagEnabled(){return true;`: This is an important pattern where the feature flag is hardcoded to true, indicating that the feature is permanently enabled in the environment you're analyzing.
 #### Monitoring Feature Flags
-Create an alert system to track when a specific feature flag is being activated or pushed. 
+Create an alert system to track when a specific feature flag is being activated or pushed.
 This will help you stay informed about changes or updates to feature flag statuses in the application
 
 ## Dynamic wordlist generation
-Parse automation scripts to scan and extract relevant words, such as parameter names, function names, and keywords, from the codebase and documentation. 
+Parse automation scripts to scan and extract relevant words, such as parameter names, function names, and keywords, from the codebase and documentation.
 This will help in identifying important terms for monitoring or further analysis.
 ## Monitoring
 **Python Script + Regex**: Write a Python script that uses regular expressions (regex) to search for specific patterns in the codebase, such as feature flags, API calls, or user-controlled data.
@@ -283,30 +299,28 @@ This will help in identifying important terms for monitoring or further analysis
 ### Query Parameter Exploitation
 
 Suppose a query parameter is embedded directly into the JavaScript source code dynamically. This can lead to exploitation as follows:
-- Initial Exploit: You set a query parameter in the URL, such as ?param=value, and it gets embedded into the JavaScript code without proper sanitization.
-- Breaking Out: By manipulating the query parameter value, you can "break out" of its intended context. For instance, by injecting special characters, you can alter the structure of the JavaScript code.
-- Chaining with Additional Parameters: After breaking out, you can define additional query parameters, such as ?param=value&maliciousParam=<script>. These parameters can now be used to inject malicious JavaScript, such as inserting a marketing URL or dynamically creating and executing harmful scripts.
+- **Initial Exploit**: You set a query parameter in the URL, such as `?param=value`, and it gets embedded into the JavaScript code without proper sanitization.
+- **Breaking Out**: By manipulating the query parameter value, you can "break out" of its intended context. For instance, by injecting special characters, you can alter the structure of the JavaScript code.
+- **Chaining with Additional Parameters**: After breaking out, you can define additional query parameters, such as `?param=value&maliciousParam=<script>`. These parameters can now be used to inject malicious JavaScript, such as inserting a marketing URL or dynamically creating and executing harmful scripts.
 
 ### Using XSS to Control Cookies and Hijack Sessions
-- XSS Attack: Suppose you've identified a cross-site scripting (XSS) vulnerability on the site. You exploit this XSS to modify cookies directly.
-- Cookie as Part of Authentication: Many sites associate login sessions with cookies. If the cookie is part of the authentication process and is also set via headers, you may be able to manipulate it.
-- Bypassing 2FA: In some cases, after a login session is established via a cookie, the user is prompted for two-factor authentication (2FA). If you can control the cookie, you may bypass this 2FA step.
-- Partial Session Hijacking: By manipulating only part of the authentication flow (e.g., hijacking the session via cookies), you could access specific endpoints without fully authenticating, allowing actions such as changing the user's email or performing unauthorized actions within the account.
+
+- **XSS Attack**: Suppose you've identified a cross-site scripting (XSS) vulnerability on the site. You exploit this XSS to modify cookies directly.
+- **Cookie as Part of Authentication**: Many sites associate login sessions with cookies. If the cookie is part of the authentication process and is also set via headers, you may be able to manipulate it.
+- **Bypassing 2FA**: In some cases, after a login session is established via a cookie, the user is prompted for two-factor authentication (2FA). If you can control the cookie, you may bypass this 2FA step.
+- **Partial Session Hijacking**: By manipulating only part of the authentication flow (e.g., hijacking the session via cookies), you could access specific endpoints without fully authenticating, allowing actions such as changing the user's email or performing unauthorized actions within the account.
 
 ## Useful links & extra notes
 [Reversing and Tooling a Signed Request Hash in Obfuscated JavaScript](https://buer.haus/2024/01/16/reversing-and-tooling-a-signed-request-hash-in-obfuscated-javascript/)
 
 [jsluice](https://github.com/BishopFox/jsluice): Parse js files and pulling out interesting strings.
-No need to use this tool, it's better to assess the files manually. 
+No need to use this tool, it's better to assess the files manually.
 
-You'll need to understand the codebase better than the people who wrote to find as many bugs as you can. 
-Break the app apart. Understand all the little pieces, understand all the functions, all the client side paths, all the ways it interact with the apis. 
+You'll need to understand the codebase better than the people who wrote to find as many bugs as you can.
+Break the app apart. Understand all the little pieces, understand all the functions, all the client side paths, all the ways it interact with the apis.
 
 To find as many vulnerabilities as possible, you need to break the application down and understand it better than the original developers. Focus on dissecting every part of the app, including:
 - Understanding how each function works
 - Mapping all client-side paths
 - Identifying all interactions with APIs
-By doing this, you can uncover hidden flaws and discover bugs that automated tools might miss.
-
-
-
+  By doing this, you can uncover hidden flaws and discover bugs that automated tools might miss.
