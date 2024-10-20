@@ -16,8 +16,12 @@ conditioning match and replace to validate theory
 e.g. https://app.grammarly.com  replace javascript:alert(1)
 condition: `req.path.cont:"/redirect/way`
 
-# gau
 
+interesting: domain for redirect
+
+when you see base64 string starting with "ey"  thats mean you're dealing base65 encode json
+normally its "eyj" if its using single it can be different which means its not a valid json format
+- probably its python, someone taking python dict and running `str()`
 
 
 Interesting to look at:
@@ -36,5 +40,13 @@ our cookie has more granular path and get priorties when the client side is read
 redirect location that it should redirect to after login
 we can convert xss from a random subdomain to the main app
 
+fuzz with
+all url encoded ascii
+see what character works
+e.g ; 
 
-
+```javascript
+invite_key=test;Path=/abc123" -> invite_key=test;Path=/abc123\"
+invite_key=test;Path=/abc123\" -> invite_key=test;Path=/abc123\\"
+```
+Keep this in mind when you're trying to escape encoding
