@@ -50,7 +50,7 @@ Run cloud recon on the cloud ranges, and it will go and visit each ip and grab i
 ```bash
 CloudRecon scrape -i <file>
 ```
-ip ranges for cloud vendor
+ip ranges for cloud vendor [https://github.com/lord-alfred/ipranges](https://github.com/lord-alfred/ipranges
 
 Use grep search the file from CloudRecon
 ```bash
@@ -75,6 +75,25 @@ look at certificate data -> reverse dns lookup
 ```bash
 prips 27.126.144.0/21 | hakip2host
 ```
+Alternative to CloudRecon
+[https://kaeferjaeger.gay/](https://kaeferjaeger.gay/)
+[https://kaeferjaeger.gay/?dir=sni-ip-ranges](https://kaeferjaeger.gay/?dir=sni-ip-ranges)
+
+## Shodan
+Shodan give passive subdomains, ip addresses, vulnerability data etc
+
+Shodan dork
+[karma v2](https://github.com/Dheerajmadhukar/karma_v2)
+
+
+Find subdomain on shodan
+[shusubgo](https://github.com/incogbyte/shosubgo)
+
+Video on more [asset discovery](https://www.youtube.com/watch?v=4CL_8GRNVTE)
+
+
+
+
 
 
 
