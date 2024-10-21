@@ -91,6 +91,13 @@ Find subdomain on shodan
 
 Video on more [asset discovery](https://www.youtube.com/watch?v=4CL_8GRNVTE)
 
+# Browser extensions
+Bulk URL Opener Extension
+- Dump domains in browser
+
+[amass](https://github.com/owasp-amass/amass)
+[bbot](https://github.com/blacklanternsecurity/bbot)
+
 
 
 
