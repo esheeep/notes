@@ -1,22 +1,26 @@
 # ec2
 
-## Launching AMI
-Script on launch
+## Install go & interactsh
 ```bash
-#!/bin/bash
-# Update the package manager
-sudo yum update -y
+cd /usr/local/
+sudo wget https://dl.google.com/go/go1.13.4.linux-amd64.tar.gz
+sudo tar -xzf go1.13.4.linux-amd64.tar.gz
+```
 
-# Install Git, Vim, and Go
-sudo yum install git vim -y
-sudo amazon-linux-extras install golang1.11 -y
+Add go to path
+```bash
+cd /etc/profile.d
+sudo nano go.sh
+#insert following lines: 
+export PATH=$PATH:/usr/local/go/bin
+export GOPATH=$HOME/go
+```
+Install interactsh
+```bash
+go get -v github.com/projectdiscovery/interactsh/cmd/interactsh-client@latest
+```
 
-# Set Go environment variables
-echo "export PATH=\$PATH:/usr/local/go/bin" >> ~/.bashrc
-echo "export GOPATH=\$HOME/go" >> ~/.bashrc
-source ~/.bashrc
-
-# Install the interactsh-client
-go install -v github.com/projectdiscovery/interactsh/cmd/interactsh-client@latest
-
+Set api key
+```bash
+./interactsh-client -auth
 ```
