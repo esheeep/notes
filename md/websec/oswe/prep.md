@@ -15,9 +15,8 @@ To do before taking the course.
 - Reverse Shells
   - [Reverse Shell Cheat Sheet](https://highon.coffee/blog/reverse-shell-cheat-sheet/)
   - [Upload Insecure Files](https://github.com/swisskyrepo/PayloadsAllTheThings/tree/master/Upload%20Insecure%20Files)
-- JD-GUI
 
-## Programming concepts
+### Programming concepts
 
 | Concept                    | What You Should Know:                                                              |
 | -------------------------- | ---------------------------------------------------------------------------------- |
@@ -38,22 +37,25 @@ To do before taking the course.
 |                            | • How is data returned from a function?                                            |
 | **Comments**               | • Which characters denote the start of a comment?                                  |
 
-## Web App concepts
+### Web App concepts
 
 | Concept                  | What You Should Know:                                                                                                                                                              |
 | ------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | **Input Validation**     | • How do web apps ensure user-provided data is valid? <br> • Which types of data can be dangerous to a web app?                                                                    |
 | **Database Interaction** | • What kinds of databases can be used by a web app? <br> • How do database management systems differ? <br> • How does a web app create, retrieve, update, or delete database data? |
-| **Authentication**       | • How does a web app authenticate users? <br> • What are hashes? Why is data often stored as hashes? <br> • How does an app                                                        |
+| **Authentication**       | • How does a web app authenticate users? <br> • What are hashes? Why is data often stored as hashes?                                                                               |
+
+### Sample Projects for Code Review
 
 | Language         | Sample Project for Code Review                                                                                                                                                              |
 | ---------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **PHP**          | • Beginner: [simple-php-website](https://github.com/banago/simple-php-website) <br> • Advanced: [Fuel CMS](https://www.getfuelcms.com/)                                                     |
-| **ASP.NET & C#** | • Beginner: [SimpleWebAppMVC](https://github.com/adamajammary/simple-web-app-mvc-dotnet) <br> • Moderate: [Reddnet](https://github.com/moritz-mm/Reddnet)                                   |
+| **PHP**          | • Beginner: [Simple PHP Website](https://github.com/banago/simple-php-website) <br> • Advanced: [Fuel CMS](https://www.getfuelcms.com/)                                                     |
+| **ASP.NET & C#** | • Beginner: [Simple Web App MVC](https://github.com/adamajammary/simple-web-app-mvc-dotnet) <br> • Moderate: [Reddnet](https://github.com/moritz-mm/Reddnet)                                |
 | **NodeJS**       | • Beginner: [Employee Database](https://github.com/ijason/NodeJS-Sample-App) <br> • Moderate: [JS RealWorld Example App](https://github.com/gothinkster/node-express-realworld-example-app) |
-| **Java**         | • Beginner: [Java Web App – Step by Step](https://github.com/in28minutes/JavaWebApplicationStepByStep) <br> • [Advanced: GeoStore](https://github.com/geosolutions-it/geostore)             |
+| **Java**         | • Beginner: [Java Web App – Step by Step](https://github.com/in28minutes/JavaWebApplicationStepByStep) <br> • Advanced: [GeoStore](https://github.com/geosolutions-it/geostore)             |
+|  |
 
-## Vulnerabilities
+### Vulnerabilities
 
 | Vulnerability                          | Vulnerability Write-up                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
 | -------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -74,7 +76,7 @@ To do before taking the course.
 | **Long Readings**                      | • [Use of Deserialization in .NET Framework](https://www.nccgroup.trust/globalassets/our-research/uk/images/whitepaper-new.pdf) <br> • [BlackHat JSON Attacks](https://www.blackhat.com/docs/us-17/thursday/us-17-Munoz-Friday-The-13th-JSON-Attacks-wp.pdf)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
 |  |
 
-## More prep
+### More prep
 
 - [JavaScript For Pentesters](https://www.pentesteracademy.com/course?id=11)
 - [Edabit (Javascript, Java, PHP)](https://edabit.com/)
