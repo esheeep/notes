@@ -14,7 +14,9 @@
   - [Reverse Shell Cheat Sheet](https://highon.coffee/blog/reverse-shell-cheat-sheet/)
   - [Upload Insecure Files](https://github.com/swisskyrepo/PayloadsAllTheThings/tree/master/Upload%20Insecure%20Files)
 
-## Programming concepts
+## Before OSWE
+
+### Programming concepts
 
 | Concept                    | What You Should Know:                                                              |
 | -------------------------- | ---------------------------------------------------------------------------------- |
@@ -34,6 +36,33 @@
 |                            | • How is data passed to a function?                                                |
 |                            | • How is data returned from a function?                                            |
 | **Comments**               | • Which characters denote the start of a comment?                                  |
+
+### Web App concepts
+
+| Concept                  | What You Should Know:                                                                                                                                                              |
+| ------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Input Validation**     | • How do web apps ensure user-provided data is valid? <br> • Which types of data can be dangerous to a web app?                                                                    |
+| **Database Interaction** | • What kinds of databases can be used by a web app? <br> • How do database management systems differ? <br> • How does a web app create, retrieve, update, or delete database data? |
+| **Authentication**       | • How does a web app authenticate users? <br> • What are hashes? Why is data often stored as hashes? <br> • How does an app                                                        |
+
+| Language         | Sample Project for Code Review                                                                                                                                                              |
+| ---------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **PHP**          | • Beginner: [simple-php-website](https://github.com/banago/simple-php-website) <br> • Advanced: [Fuel CMS](https://www.getfuelcms.com/)                                                     |
+| **ASP.NET & C#** | • Beginner: [SimpleWebAppMVC](https://github.com/adamajammary/simple-web-app-mvc-dotnet) <br> • Moderate: [Reddnet](https://github.com/moritz-mm/Reddnet)                                   |
+| **NodeJS**       | • Beginner: [Employee Database](https://github.com/ijason/NodeJS-Sample-App) <br> • Moderate: [JS RealWorld Example App](https://github.com/gothinkster/node-express-realworld-example-app) |
+| **Java**         | • Beginner: [Java Web App – Step by Step](https://github.com/in28minutes/JavaWebApplicationStepByStep) <br> • [Advanced: GeoStore](https://github.com/geosolutions-it/geostore)             |
+
+### Vulnerabilities
+
+| Vulnerability                      | Vulnerability Write-up                                                                                                                                                                                                                                               |
+| ---------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Cross-Site Scripting (XSS)**     | • [From Reflected XSS to Account Takeover](https://medium.com/a-bugz-life/from-reflected-xss-to-account-takeover-showing-xss-impact-9bc6dd35d4e6) <br> • [XSS to Account Takeover](https://noobe.io/articles/2019-10/xss-to-account-takeover)                        |
+| **Mass Assignment**                | • [KBID 147 – Parameter Binding](https://github.com/blabla1337/skf-labs/blob/master/kbid-147-parameter-binding.md) <br> • [Mass Assignment Cheat Sheet](https://github.com/OWASP/CheatSheetSeries/blob/master/cheatsheets/Mass_Assignment_Cheat_Sheet.md)            |
+| **Blind SQL Injection**            | • [KBID 156 – SQLI (Blind)](https://github.com/blabla1337/skf-labs/blob/master/kbid-156-sqli-blind.md)                                                                                                                                                               |
+| **PHP Type Juggling**              | • [PHP Magic Tricks: Type Juggling](https://owasp.org/www-pdf-archive/PHPMagicTricks-TypeJuggling.pdf) <br> • [PHP Type Juggling Vulnerabilities](https://medium.com/swlh/php-type-juggling-vulnerabilities-3e28c4ed5c09)                                            |
+| **Insecure Deserialization**       | • [KBID 271 – Deserialization YAML](https://github.com/blabla1337/skf-labs/blob/master/kbid-xxx-deserialisation-yaml.md) <br> • [Breaking .NET Through Serialization](https://media.blackhat.com/bh-us-12/Briefings/Forshaw/BH_US_12_Forshaw_Are_You_My_Type_WP.pdf) |
+| **Business Logic Vulnerabilities** | • [KBID – Auth Bypass 2](https://github.com/blabla1337/skf-labs/blob/master/kbid-XXX-Auth-bypass-2.md)                                                                                                                                                               |
+| **File Upload Vulnerabilities**    | • [Zorz VulnHub Writeup](https://berzerk0.github.io/GitPage/CTF-Writeups/ZorZ-Vulnhub.html)                                                                                                                                                                          |
 
 ## Topics
 
