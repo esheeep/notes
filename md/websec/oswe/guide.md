@@ -1,4 +1,6 @@
-# OSWE Study
+# OSWE Prep
+
+To do before taking the course.
 
 ## Syllabus
 
@@ -13,10 +15,9 @@
 - Reverse Shells
   - [Reverse Shell Cheat Sheet](https://highon.coffee/blog/reverse-shell-cheat-sheet/)
   - [Upload Insecure Files](https://github.com/swisskyrepo/PayloadsAllTheThings/tree/master/Upload%20Insecure%20Files)
+- JD-GUI
 
-## Before OSWE
-
-### Programming concepts
+## Programming concepts
 
 | Concept                    | What You Should Know:                                                              |
 | -------------------------- | ---------------------------------------------------------------------------------- |
@@ -37,7 +38,7 @@
 |                            | • How is data returned from a function?                                            |
 | **Comments**               | • Which characters denote the start of a comment?                                  |
 
-### Web App concepts
+## Web App concepts
 
 | Concept                  | What You Should Know:                                                                                                                                                              |
 | ------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -52,69 +53,35 @@
 | **NodeJS**       | • Beginner: [Employee Database](https://github.com/ijason/NodeJS-Sample-App) <br> • Moderate: [JS RealWorld Example App](https://github.com/gothinkster/node-express-realworld-example-app) |
 | **Java**         | • Beginner: [Java Web App – Step by Step](https://github.com/in28minutes/JavaWebApplicationStepByStep) <br> • [Advanced: GeoStore](https://github.com/geosolutions-it/geostore)             |
 
-### Vulnerabilities
+## Vulnerabilities
 
-| Vulnerability                      | Vulnerability Write-up                                                                                                                                                                                                                                               |
-| ---------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Cross-Site Scripting (XSS)**     | • [From Reflected XSS to Account Takeover](https://medium.com/a-bugz-life/from-reflected-xss-to-account-takeover-showing-xss-impact-9bc6dd35d4e6) <br> • [XSS to Account Takeover](https://noobe.io/articles/2019-10/xss-to-account-takeover)                        |
-| **Mass Assignment**                | • [KBID 147 – Parameter Binding](https://github.com/blabla1337/skf-labs/blob/master/kbid-147-parameter-binding.md) <br> • [Mass Assignment Cheat Sheet](https://github.com/OWASP/CheatSheetSeries/blob/master/cheatsheets/Mass_Assignment_Cheat_Sheet.md)            |
-| **Blind SQL Injection**            | • [KBID 156 – SQLI (Blind)](https://github.com/blabla1337/skf-labs/blob/master/kbid-156-sqli-blind.md)                                                                                                                                                               |
-| **PHP Type Juggling**              | • [PHP Magic Tricks: Type Juggling](https://owasp.org/www-pdf-archive/PHPMagicTricks-TypeJuggling.pdf) <br> • [PHP Type Juggling Vulnerabilities](https://medium.com/swlh/php-type-juggling-vulnerabilities-3e28c4ed5c09)                                            |
-| **Insecure Deserialization**       | • [KBID 271 – Deserialization YAML](https://github.com/blabla1337/skf-labs/blob/master/kbid-xxx-deserialisation-yaml.md) <br> • [Breaking .NET Through Serialization](https://media.blackhat.com/bh-us-12/Briefings/Forshaw/BH_US_12_Forshaw_Are_You_My_Type_WP.pdf) |
-| **Business Logic Vulnerabilities** | • [KBID – Auth Bypass 2](https://github.com/blabla1337/skf-labs/blob/master/kbid-XXX-Auth-bypass-2.md)                                                                                                                                                               |
-| **File Upload Vulnerabilities**    | • [Zorz VulnHub Writeup](https://berzerk0.github.io/GitPage/CTF-Writeups/ZorZ-Vulnhub.html)                                                                                                                                                                          |
+| Vulnerability                          | Vulnerability Write-up                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
+| -------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Cross-Site Scripting (XSS)**         | • [From Reflected XSS to Account Takeover](https://medium.com/a-bugz-life/from-reflected-xss-to-account-takeover-showing-xss-impact-9bc6dd35d4e6) <br> • [XSS to Account Takeover](https://noobe.io/articles/2019-10/xss-to-account-takeover) <br> • [XHR Spec](https://xhr.spec.whatwg.org/)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |
+| **Session Hijacking**                  | • [Hijacking Sessions using Socat](https://popped.io/hijacking-sessions-using-socat/) <br> • [PentesterLab XSS and MySQL File](https://pentesterlab.com/exercises/xss_and_mysql_file/course)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
+| **Persistent Cross-Site Scripting**    | • [Acunetix on Persistent XSS](https://www.acunetix.com/blog/articles/persistent-xss/) <br> • [PortSwigger Web Security - XSS](https://portswigger.net/web-security/cross-site-scripting)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |
+| **Cross-Site Request Forgery**         | • [OWASP CSRF Prevention Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Cross-Site_Request_Forgery_Prevention_Cheat_Sheet.html)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
+| **XSS and MySQL**                      | • [VulnHub Pentester Lab XSS and MySQL File](https://www.vulnhub.com/entry/pentester-lab-xss-and-mysql-file,66/)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |
+| **Bypassing File Upload Restrictions** | • [Exploit-DB File Upload Restrictions Bypass](https://www.exploit-db.com/docs/english/45074-file-upload-restrictions-bypass.pdf) <br> • [Security Idiots - Shell Upload](http://www.securityidiots.com/Web-Pentest/hacking-website-by-shell-uploading.html) <br> • [OWASP Unrestricted File Upload](https://www.owasp.org/index.php/Unrestricted_File_Upload) <br> • Popcorn machine from HackTheBox <br> • Vault machine from HackTheBox                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |
+| **PHP Type Juggling**                  | • [PHP Magic Tricks: Type Juggling](https://owasp.org/www-pdf-archive/PHPMagicTricks-TypeJuggling.pdf) <br> • [PHP Type Juggling Explained](https://medium.com/@Q2hpY2tlblB3bnk/php-type-juggling-c34a10630b10) <br> • [FoxGloveSecurity PHP Type Juggling](https://foxglovesecurity.com/2017/02/07/type-juggling-and-php-object-injection-and-sqli-oh-my/) <br> • [Netsparker PHP Type Juggling](https://www.netsparker.com/blog/web-security/php-type-juggling-vulnerabilities/) <br> • [TurboChaos PHP Type Juggling](http://turbochaos.blogspot.com/2013/08/exploiting-exotic-bugs-php-type-juggling.html) <br> • [OWASP Type Juggling Authentication Bypass](https://www.netsparker.com/blog/web-security/type-juggling-authentication-bypass-cms-made-simple/) <br> • [PHP.net Type Comparisons](https://www.php.net/manual/en/types.comparisons.php) <br> • [Spaze Hashes](https://github.com/spaze/hashes) <br> • [WhiteHatSec Magic Hashes](https://www.whitehatsec.com/blog/magic-hashes/) <br> • Falafel machine from HackTheBox |
+| **Deserialization**                    | • [OWASP Deserialization Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Deserialization_Cheat_Sheet.html) <br> • [BlackHat JSON Attacks](https://www.blackhat.com/docs/us-17/thursday/us-17-Munoz-Friday-The-13th-Json-Attacks.pdf) <br> • [Exploit-DB Deserialization](https://www.exploit-db.com/docs/english/44756-deserialization-vulnerability.pdf) <br> • [Zer0Nights Deserialization](https://2017.zeronights.org/wp-content/uploads/materials/ZN17_Aleksei%20Tiurin_Deserialization%20vulnerabilities.pdf)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
+| **.NET Deserialization**               | • [BlackHat .NET Serialization](https://media.blackhat.com/bh-us-12/Briefings/Forshaw/BH_US_12_Forshaw_Are_You_My_Type_WP.pdf) <br> • [ysoserial.net](https://github.com/pwntester/ysoserial.net) <br> • [dnSpy](https://github.com/0xd4d/dnSpy)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |
+| **Java Deserialization**               | • [Exploiting Blind Java Deserialization](https://www.n00py.io/2017/11/exploiting-blind-java-deserialization-with-burp-and-ysoserial/) <br> • [OWASP Java Deserialization](https://www.owasp.org/images/7/71/GOD16-Deserialization.pdf) <br> • [ysoserial](https://github.com/frohoff/ysoserial) <br> • [Java Deserialization Cheat Sheet](https://github.com/GrrrDog/Java-Deserialization-Cheat-Sheet/blob/master/README.md) <br> • [Practicing Java Deserialization](https://diablohorn.com/2017/09/09/understanding-practicing-java-deserialization-exploits/)                                                                                                                                                                                                                                                                                                                                                                                                                                                                           |
+| **JavaScript Injection**               | • [NodeGoat Server-Side JS Injection](https://ckarande.gitbooks.io/owasp-nodegoat-tutorial/content/tutorial/a1_-_server_side_js_injection.html) <br> • [CapacitorSet MathJS](https://capacitorset.github.io/mathjs/)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
+| **NodeJS**                             | • [Remote Debugging Node with VSCode](https://maikthulhu.github.io/2019-05-17-remote-debugging-node-vscode/) <br> • [Node.js Security Course](https://github.com/ajinabraham/Node.Js-Security-Course) <br> • [Acunetix JS Deserialization](https://www.acunetix.com/blog/web-security-zone/deserialization-vulnerabilities-attacking-deserialization-in-js/) <br> • [YeahHub Node.js Deserialization Attack](https://www.yeahhub.com/nodejs-deserialization-attack-detailed-tutorial-2018/) <br> • Celestial machine from HackTheBox                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
+| **SQL Injection**                      | • [PentesterLab SQLi to Shell](https://pentesterlab.com/exercises/from_sqli_to_shell/course) <br> • [Acunetix Blind SQLi](https://www.acunetix.com/websitesecurity/blind-sql-injection/)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |
+| **PostgreSQL**                         | • [PostgreSQL SQL Injection Cheat Sheet](http://pentestmonkey.net/cheat-sheet/sql-injection/postgres-sql-injection-cheat-sheet) <br> • [PostgreSQL Shell](http://www.leidecker.info/pgshell/Having_Fun_With_PostgreSQL.txt) <br> • [PostgreSQL Exploit DB](https://www.exploit-db.com/papers/13084) <br> • [PostgreSQL String Functions](http://www.postgresqltutorial.com/postgresql-string-functions/) <br> • [LinuxTopia PostgreSQL Guide](https://www.linuxtopia.org/online_books/database_guides/Practical_PostgreSQL_database/c7547_002.htm) <br> • [PostgreSQL Injection Guide](https://www.infigo.hr/files/INFIGO-TD-2009-04_PostgreSQL_injection_ENG.pdf) <br> • [Blind PostgreSQL SQL Injection](https://dotcppfile.wordpress.com/2014/07/12/blind-postgresql-sql-injection-tutorial/)                                                                                                                                                                                                                                            |
+| **Long Readings**                      | • [Use of Deserialization in .NET Framework](https://www.nccgroup.trust/globalassets/our-research/uk/images/whitepaper-new.pdf) <br> • [BlackHat JSON Attacks](https://www.blackhat.com/docs/us-17/thursday/us-17-Munoz-Friday-The-13th-JSON-Attacks-wp.pdf)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
+|  |
 
-## Topics
+## More prep
 
-### ATutor Authentication Bypass and RCE
-
-#### Blind SQL Injections
-
-#### Data Exfiltration
-
-#### Subverting the Atutor Authentication
-
-#### Bypassing File Upload Restrictions
-
-#### Remote Code Execution
-
-### Atutor LMS Type Juggling Vulnerablity
-
-#### PHP Loose and Strict Comparisons
-
-#### PHP String Conversion to Numbers
-
-### ManageEngine Applications Manager AMUserResourcesSyncServlet SQL Injection RCE
-
-#### Houdine Escapes
-
-#### Blind Bats
-
-#### Accessing the File System
-
-#### PostgreSQL Extensions
-
-#### UDF Reverse shell
-
-### Bassmaster NodeJS Arbitrary JavaScript Injection Vulnerability
-
-#### The Bassmaster Plugin
-
-### DotNetNuke Cookie Deserialization RCE
-
-### ERPNext Authentication Bypass and Server Side Template Injection
-
-### openCRX Authentication Bypass and Remote Code Execution
-
-### openITCOCKPIT XSS and OS Command Injection - Blackbox
-
-### Concord Authentication Bypass to RCE
-
-### Server Side Request Forgery
-
-### Guacamole Lite Prototype Pollution
-
-## Resources
-
-- [Exploit Writing for OSWE](https://github.com/rizemon/exploit-writing-for-oswe): This is an amazing resource that breaks down all of the important concepts for the python requests library.
-- [Java Runtime Exec Command Generator](https://ares-x.com/tools/runtime-exec/): t can be painful to make your reverse shell payload work with Runtime exec, this website makes it a breeze.
+- [JavaScript For Pentesters](https://www.pentesteracademy.com/course?id=11)
+- [Edabit (Javascript, Java, PHP)](https://edabit.com/)
+- [From SQL Injection to Shell](https://pentesterlab.com/exercises/from_sqli_to_shell/)
+- [XSS and MySQL](https://www.vulnhub.com/entry/pentester-lab-xss-and-mysql-file,66/)
+- [Understanding PHP Object Injection](https://securitycafe.ro/2015/01/05/understanding-php-object-injection/)
+- [/dev/random: Pipe](https://www.vulnhub.com/entry/devrandom-pipe,124/)
+- [Understanding Java Deserialization](https://nytrosecurity.com/2018/05/30/understanding-java-deserialization/)
+- [Practicing Java Deserialization Exploits](https://diablohorn.com/2017/09/09/understanding-practicing-java-deserialization-exploits/)
+- [SQL Injection Attacks and Defense](https://www.amazon.com/Injection-Attacks-Defense-Justin-Clarke/dp/1597499633)
