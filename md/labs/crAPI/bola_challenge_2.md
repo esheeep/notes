@@ -54,4 +54,4 @@ Adding my existing JWT token enable me to view the report.
 }
 ```
 
-Fuzzing throuhg the report_id, 7 report was identified. The reports was increment by 1 and stating with 1 and end with 7.
+Fuzzing through the report_id, 7 report was identified. The reports was increment by 1 and stating with 1 and end with 7.
