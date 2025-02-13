@@ -1,5 +1,7 @@
 # FFUF
 
+Basic
+
 ```
 ffuf -u http://ffuf.me/cd/basic/FUZZ -w common.txt
 ```
