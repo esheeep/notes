@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "application_security/vulnerabilities/XSS/XSS Methodology.md",
+                "file": "hacking/recon.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "XSS Methodology"
+              "title": "recon"
             }
           }
         ]
@@ -168,12 +168,14 @@
       "command-palette:Open command palette": false
     }
   },
-  "active": "281e1db5e7f80115",
+  "active": "b54215c32966989f",
   "lastOpenFiles": [
-    "application_security/vulnerabilities/XSS/overview.md",
-    "application_security/vulnerabilities/XSS/XSS Methodology.md",
-    "application_security/vulnerabilities/XSS/XSS_cookie_manipulation_cross_domain_redirection.md",
     "application_security/OSWE_prep.md",
+    "application_security/authorisation.md",
+    "application_security/authentication.md",
+    "application_security/vulnerabilities/XSS/XSS_cookie_manipulation_cross_domain_redirection.md",
+    "application_security/vulnerabilities/XSS/1. overview.md",
+    "application_security/vulnerabilities/XSS/2. XSS Methodology.md",
     "attachments/Pasted image 20250309230038.png",
     "ctf/SnykCon2025/CTF_101.md",
     "attachments/Pasted image 20250309224130.png",
