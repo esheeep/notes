@@ -21,6 +21,7 @@ const (
 	filePermissions = 0644
 	indexPageName   = "index.html"
 	publicDir       = "public/"
+	attachmentsDir  = "attachments" // New constant for attachments directory
 )
 
 type NavItem struct {
@@ -83,10 +84,32 @@ func extractCategoryFromPath(path string) string {
 	return ""
 }
 
+// New function to convert wiki-style image links to HTML img tags
+func convertWikiImageLinks(content string) string {
+	// Regex to match ![[image name.extension]]
+	wikiImagePattern := regexp.MustCompile(`!\[\[(.*?)\]\]`)
+
+	// Replace with HTML img tags pointing to /attachments/imagename
+	return wikiImagePattern.ReplaceAllStringFunc(content, func(match string) string {
+		// Extract the image filename from between the brackets
+		imageName := wikiImagePattern.FindStringSubmatch(match)[1]
+
+		// Replace spaces with underscores in the file path
+		imageNameWithUnderscores := strings.ReplaceAll(imageName, " ", "_")
+
+		// Add style to make image responsive (max-width: 100%)
+		return fmt.Sprintf(`<img src="/attachments/%s" alt="%s" style="max-width: 100%%; height: auto;" />`,
+			imageNameWithUnderscores, imageName)
+	})
+}
+
 func mdToHTML(md []byte) []byte {
+	// First convert wiki-style image links
+	mdContent := convertWikiImageLinks(string(md))
+
 	extensions := parser.CommonExtensions | parser.AutoHeadingIDs | parser.NoEmptyLineBeforeBlock
 	p := parser.NewWithExtensions(extensions)
-	doc := p.Parse(md)
+	doc := p.Parse([]byte(mdContent))
 
 	htmlFlags := html.CommonFlags | html.HrefTargetBlank
 	opts := html.RendererOptions{Flags: htmlFlags}
@@ -135,6 +158,14 @@ func buildNavTree(srcDir string) (*NavItem, error) {
 
 		relPath, _ := filepath.Rel(srcDir, path)
 		parts := strings.Split(relPath, string(os.PathSeparator))
+
+		// Skip the attachments directory when building nav
+		if parts[0] == attachmentsDir {
+			if info.IsDir() {
+				return filepath.SkipDir
+			}
+			return nil
+		}
 
 		if strings.HasPrefix(filepath.Base(path), ".") {
 			if info.IsDir() {
@@ -516,8 +547,53 @@ func processDirectory(srcDir, destDir string, navContent string) error {
 			return fmt.Errorf("error accessing path %s: %v", path, err)
 		}
 
+		// Skip files and directories that start with a dot (hidden)
+		if strings.HasPrefix(filepath.Base(path), ".") {
+			if info.IsDir() {
+				log.Printf("Skipped hidden directory: %s", path)
+				return filepath.SkipDir
+			}
+			log.Printf("Skipped hidden file: %s", path)
+			return nil
+		}
+
 		relPath, _ := filepath.Rel(srcDir, path)
 		newPath := filepath.Join(destDir, relPath)
+
+		// Skip processing the attachments directory for Markdown files
+		if strings.Split(relPath, string(os.PathSeparator))[0] == attachmentsDir {
+			if info.IsDir() {
+				// Create the directory in the destination but don't process its contents as MD
+				if err := createDirectory(newPath); err != nil {
+					return err
+				}
+				log.Printf("Created attachments directory: %s", newPath)
+				return nil
+			}
+
+			// Get the original filename
+			fileName := filepath.Base(path)
+
+			// Create a destination filename with spaces replaced by underscores
+			fileNameWithUnderscores := strings.ReplaceAll(fileName, " ", "_")
+
+			// Update the destination path with the new filename
+			destDir := filepath.Dir(newPath)
+			newPathWithUnderscores := filepath.Join(destDir, fileNameWithUnderscores)
+
+			// Copy the attachment file with the new filename
+			fileContent, err := readFile(path)
+			if err != nil {
+				return fmt.Errorf("error reading attachment file %s: %v", path, err)
+			}
+
+			if err := writeFile(newPathWithUnderscores, fileContent); err != nil {
+				return fmt.Errorf("error copying attachment file %s: %v", newPathWithUnderscores, err)
+			}
+
+			log.Printf("Copied attachment: %s to %s", path, newPathWithUnderscores)
+			return nil
+		}
 
 		if info.IsDir() {
 			if err := createDirectory(newPath); err != nil {
@@ -534,6 +610,26 @@ func processDirectory(srcDir, destDir string, navContent string) error {
 		log.Printf("Skipped non-Markdown file: %s", path)
 		return nil
 	})
+}
+
+// New function to copy entire attachments directory
+func copyAttachmentsDirectory(srcDir, destDir string) error {
+	attachmentsSrc := filepath.Join(srcDir, attachmentsDir)
+	attachmentsDest := filepath.Join(destDir, attachmentsDir)
+
+	// Check if attachments directory exists
+	if _, err := os.Stat(attachmentsSrc); os.IsNotExist(err) {
+		log.Printf("Attachments directory does not exist: %s", attachmentsSrc)
+		return nil
+	}
+
+	// Create the destination attachments directory
+	if err := createDirectory(attachmentsDest); err != nil {
+		return fmt.Errorf("failed to create attachments directory: %v", err)
+	}
+
+	log.Printf("Created attachments directory in public: %s", attachmentsDest)
+	return nil
 }
 
 func copyFileToPublic(path string) error {
@@ -563,6 +659,11 @@ func main() {
 	}
 
 	navContent := renderNavTree(navRoot)
+
+	// First, create the attachments directory in public
+	if err := copyAttachmentsDirectory(srcDir, destDir); err != nil {
+		log.Fatalf("Error copying attachments directory: %v", err)
+	}
 
 	if err := processDirectory(srcDir, destDir, navContent); err != nil {
 		log.Fatalf("Error processing directory: %v", err)
