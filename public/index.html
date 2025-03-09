@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Notes</title>
+    <title>Notes Index</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
@@ -11,69 +11,335 @@
     <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
     <link rel="manifest" href="site.webmanifest">
     <link rel="stylesheet" type="text/css" href="style.css">
+    <style>
+        .notes-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 16px;
+            padding: 16px 0;
+        }
+
+        .notes-link {
+            background-color: #fff;
+            border: 1px solid #e1e4e8;
+            border-radius: 6px;
+            padding: 16px;
+            transition: all 0.2s ease;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+        }
+
+        .notes-link:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+            border-color: #d1d5da;
+        }
+
+        .notes-link a {
+            color: #0366d6;
+            text-decoration: none;
+            font-weight: 500;
+            display: block;
+            padding: 4px 0;
+        }
+
+        .notes-link a:hover {
+            text-decoration: underline;
+        }
+
+        .description {
+            font-size: 16px;
+            color: #586069;
+            margin-bottom: 24px;
+            max-width: 800px;
+            line-height: 1.5;
+            
+            border-left: none;
+            padding-left: 0;
+            font-style: normal;
+            
+            background-color: #f6f8fa;
+            padding: 12px 16px;
+            border-radius: 6px;
+        }
+
+        .content h1 {
+            margin-bottom: 16px;
+        }
+        .description {
+            font-weight: 400;
+            border-left: 3px solid #0366d6;
+            padding-left: 12px;
+            font-style: italic;
+        }
+
+        @media (max-width: 768px) {
+            .notes-grid {
+                grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+                gap: 12px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .notes-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
 </head>
-<body>
-<div class="wrapper">
-    <div class="header-icon">
-        <a href="https://evxk.electricsheep.cc"><img src="favicon-32x32.png" alt="Icon" class="fire-icon"></a>
-    </div>
-    <div class="search-bar"><input type="text" id="searchInput" placeholder="Search..." onkeyup="filterLinks()"></div>
-    <div id="linkList">
-        <div class="notes-link"><a href="cloud/fly/fly.html">cloud/fly/fly</a></div>
-<div class="notes-link"><a href="git.html">git</a></div>
-<div class="notes-link"><a href="github_actions.html">github_actions</a></div>
-<div class="notes-link"><a href="network/dns.html">network/dns</a></div>
-<div class="notes-link"><a href="programming/python/flask/flask.html">programming/python/flask/flask</a></div>
-<div class="notes-link"><a href="websec/access_control/access_control.html">websec/access_control/access_control</a></div>
-<div class="notes-link"><a href="websec/authentication/auth.html">websec/authentication/auth</a></div>
-<div class="notes-link"><a href="websec/js_analysis.html">websec/js_analysis</a></div>
-<div class="notes-link"><a href="websec/sql_injection/sql_injection.html">websec/sql_injection/sql_injection</a></div>
-<div class="notes-link"><a href="websec/sql_injection/tools.html">websec/sql_injection/tools</a></div>
-<div class="notes-link"><a href="websec/ssrf/examples.html">websec/ssrf/examples</a></div>
-<div class="notes-link"><a href="websec/ssrf/ssrf.html">websec/ssrf/ssrf</a></div>
-<div class="notes-link"><a href="websec/traversal/path_traversal.html">websec/traversal/path_traversal</a></div>
-<div class="notes-link"><a href="websec/xss/xss.html">websec/xss/xss</a></div>
-<div class="notes-link"><a href="websec/xxe/xxe.html">websec/xxe/xxe</a></div>
-
-    </div>
+<body data-current-page="/index.html">
+    <header class="header">
+        <div class="header-content">
+            <a href="https://evxk.electricsheep.cc" class="logo">
+                <img src="/favicon-32x32.png" alt="Logo">
+            </a>
+            <div class="search-bar">
+                <input type="text" name="search-bar" placeholder="Search..">
+            </div>
+        </div>
+    </header>
+    <div class="container">
+        <nav class="sidebar">
+            <div class="sidebar-content">
+                <div class="category">Application Security
+    <ul>
+        <li><a href="/application_security/OSWE_prep.html">OSWE Prep</a></li>
+        <li><a href="/application_security/authentication.html">Authentication</a></li>
+        <li><a href="/application_security/authorisation.html">Authorisation</a></li>
+        <li><a href="/application_security/recon.html">Recon</a></li>
+        <li class="expandable">Random
+            <ul>
+                <li><a href="/application_security/random/browser.html">Browser</a></li>
+                <li><a href="/application_security/random/improper_email_domain_validation.html">Improper Email Domain Validation</a></li>
+                <li><a href="/application_security/random/js_analysis.html">Js Analysis</a></li>
+                <li><a href="/application_security/random/live_hack_notes.html">Live Hack Notes</a></li>
+            </ul>
+        </li>
+        <li class="expandable">Vulnerabilities
+            <ul>
+                <li class="expandable">SSRF
+                    <ul>
+                        <li><a href="/application_security/vulnerabilities/SSRF/SSRF.html">SSRF</a></li>
+                        <li><a href="/application_security/vulnerabilities/SSRF/examples.html">Examples</a></li>
+                    </ul>
+                </li>
+                <li class="expandable">XSS
+                    <ul>
+                        <li><a href="/application_security/vulnerabilities/XSS/XSS.html">XSS</a></li>
+                        <li><a href="/application_security/vulnerabilities/XSS/XSS_cookie_manipulation_cross_domain_redirection.html">XSS Cookie Manipulation Cross Domain Redirection</a></li>
+                    </ul>
+                </li>
+                <li class="expandable">XXE
+                    <ul>
+                        <li><a href="/application_security/vulnerabilities/XXE/XXE.html">XXE</a></li>
+                    </ul>
+                </li>
+                <li class="expandable">Sql Injection
+                    <ul>
+                        <li><a href="/application_security/vulnerabilities/sql_injection/sql_injection.html">Sql Injection</a></li>
+                        <li><a href="/application_security/vulnerabilities/sql_injection/tools.html">Tools</a></li>
+                    </ul>
+                </li>
+                <li class="expandable">Traversal
+                    <ul>
+                        <li><a href="/application_security/vulnerabilities/traversal/path_traversal.html">Path Traversal</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </li>
+    </ul>
 </div>
-<script>
-    'use strict';
+<div class="category">Cloud
+    <ul>
+        <li class="expandable">AWS
+            <ul>
+                <li><a href="/cloud/AWS/ec2.html">Ec2</a></li>
+                <li>Security
+                </li>
+            </ul>
+        </li>
+    </ul>
+</div>
+<div class="category">Hacking
+    <ul>
+        <li><a href="/hacking/hashcat.html">Hashcat</a></li>
+        <li class="expandable">Fuzzing
+            <ul>
+                <li><a href="/hacking/fuzzing/ffuf.html">Ffuf</a></li>
+            </ul>
+        </li>
+    </ul>
+</div>
+<div class="category">Infrastructure
+    <ul>
+        <li><a href="/infrastructure/gau_alias_dilemma.html">Gau Alias Dilemma</a></li>
+        <li class="expandable">Networking
+            <ul>
+                <li><a href="/infrastructure/networking/dns.html">Dns</a></li>
+            </ul>
+        </li>
+        <li class="expandable">Servers
+            <ul>
+                <li><a href="/infrastructure/servers/ngrok.html">Ngrok</a></li>
+            </ul>
+        </li>
+    </ul>
+</div>
+<div class="category">Software Engineering
+    <ul>
+        <li><a href="/software_engineering/git.html">Git</a></li>
+        <li><a href="/software_engineering/github_actions.html">Github Actions</a></li>
+        <li class="expandable">Python
+            <ul>
+                <li><a href="/software_engineering/python/flask.html">Flask</a></li>
+            </ul>
+        </li>
+    </ul>
+</div>
 
-    function fuzzysearch(needle, haystack) {
-        var hlen = haystack.length;
-        var nlen = needle.length;
-        if (nlen > hlen) {
-            return false;
-        }
-        if (nlen === hlen) {
-            return needle === haystack;
-        }
-        outer: for (var i = 0, j = 0; i < nlen; i++) {
-            var nch = needle.charCodeAt(i);
-            while (j < hlen) {
-                if (haystack.charCodeAt(j++) === nch) {
-                    continue outer;
+            </div>
+        </nav>
+        <main class="content">
+            <h1>Knowledge Base</h1>
+            <div class="description">
+                Tech notes I've collected over the years - mostly application security, web hacking techniques, 
+    and penetration testing, plus some coding, DevOps, and networking stuff I've found useful.
+            </div>
+            <div class="notes-grid">
+                <div class="notes-link"><a href="/application_security/OSWE/OSWE_prep.html">OSWE Prep</a></div>
+<div class="notes-link"><a href="/application_security/OSWE_prep.html">OSWE Prep</a></div>
+<div class="notes-link"><a href="/application_security/authentication/authentication.html">Authentication</a></div>
+<div class="notes-link"><a href="/application_security/authentication.html">Authentication</a></div>
+<div class="notes-link"><a href="/application_security/authorisation/access_control.html">Access Control</a></div>
+<div class="notes-link"><a href="/application_security/authorisation.html">Authorisation</a></div>
+<div class="notes-link"><a href="/application_security/random/browser.html">Browser</a></div>
+<div class="notes-link"><a href="/application_security/random/improper_email_domain_validation.html">Improper Email Domain Validation</a></div>
+<div class="notes-link"><a href="/application_security/random/js_analysis.html">Js Analysis</a></div>
+<div class="notes-link"><a href="/application_security/random/live_hack_notes.html">Live Hack Notes</a></div>
+<div class="notes-link"><a href="/application_security/recon.html">Recon</a></div>
+<div class="notes-link"><a href="/application_security/vulnerabilities/SSRF/SSRF.html">SSRF</a></div>
+<div class="notes-link"><a href="/application_security/vulnerabilities/SSRF/examples.html">Examples</a></div>
+<div class="notes-link"><a href="/application_security/vulnerabilities/XSS/XSS.html">XSS</a></div>
+<div class="notes-link"><a href="/application_security/vulnerabilities/XSS/XSS_cookie_manipulation_cross_domain_redirection.html">XSS Cookie Manipulation Cross Domain Redirection</a></div>
+<div class="notes-link"><a href="/application_security/vulnerabilities/XXE/XXE.html">XXE</a></div>
+<div class="notes-link"><a href="/application_security/vulnerabilities/sql_injection/sql_injection.html">Sql Injection</a></div>
+<div class="notes-link"><a href="/application_security/vulnerabilities/sql_injection/tools.html">Tools</a></div>
+<div class="notes-link"><a href="/application_security/vulnerabilities/traversal/path_traversal.html">Path Traversal</a></div>
+<div class="notes-link"><a href="/cloud/aws/ec2.html">Ec2</a></div>
+<div class="notes-link"><a href="/cloud/fly/fly.html">Fly</a></div>
+<div class="notes-link"><a href="/git.html">Git</a></div>
+<div class="notes-link"><a href="/github_actions.html">Github Actions</a></div>
+<div class="notes-link"><a href="/hack/fuzzing/ffuf.html">Ffuf</a></div>
+<div class="notes-link"><a href="/hack/hashcat.html">Hashcat</a></div>
+<div class="notes-link"><a href="/hack/recon.html">Recon</a></div>
+<div class="notes-link"><a href="/hacking/fuzzing/ffuf.html">Ffuf</a></div>
+<div class="notes-link"><a href="/hacking/hashcat.html">Hashcat</a></div>
+<div class="notes-link"><a href="/htb/EscapeTwo/writeup.html">Writeup</a></div>
+<div class="notes-link"><a href="/infrastructure/gau_alias_dilemma.html">Gau Alias Dilemma</a></div>
+<div class="notes-link"><a href="/infrastructure/networking/dns.html">Dns</a></div>
+<div class="notes-link"><a href="/infrastructure/servers/ngrok.html">Ngrok</a></div>
+<div class="notes-link"><a href="/labs/crAPI/BFLA.html">BFLA</a></div>
+<div class="notes-link"><a href="/labs/crAPI/bola_challenge_1.html">Bola Challenge 1</a></div>
+<div class="notes-link"><a href="/labs/crAPI/bola_challenge_2.html">Bola Challenge 2</a></div>
+<div class="notes-link"><a href="/network/dns.html">Dns</a></div>
+<div class="notes-link"><a href="/programming/python/flask/flask.html">Flask</a></div>
+<div class="notes-link"><a href="/servers/ngrok.html">Ngrok</a></div>
+<div class="notes-link"><a href="/shell/gau_alias_dilemma.html">Gau Alias Dilemma</a></div>
+<div class="notes-link"><a href="/software_engineering/git.html">Git</a></div>
+<div class="notes-link"><a href="/software_engineering/github_actions.html">Github Actions</a></div>
+<div class="notes-link"><a href="/software_engineering/python/flask.html">Flask</a></div>
+<div class="notes-link"><a href="/websec/access_control/access_control.html">Access Control</a></div>
+<div class="notes-link"><a href="/websec/authentication/auth.html">Auth</a></div>
+<div class="notes-link"><a href="/websec/browser.html">Browser</a></div>
+<div class="notes-link"><a href="/websec/improper_email_domain_validation.html">Improper Email Domain Validation</a></div>
+<div class="notes-link"><a href="/websec/js_analysis.html">Js Analysis</a></div>
+<div class="notes-link"><a href="/websec/live_hack_notes.html">Live Hack Notes</a></div>
+<div class="notes-link"><a href="/websec/oswe/prep.html">Prep</a></div>
+<div class="notes-link"><a href="/websec/sql_injection/sql_injection.html">Sql Injection</a></div>
+<div class="notes-link"><a href="/websec/sql_injection/tools.html">Tools</a></div>
+<div class="notes-link"><a href="/websec/ssrf/examples.html">Examples</a></div>
+<div class="notes-link"><a href="/websec/ssrf/ssrf.html">Ssrf</a></div>
+<div class="notes-link"><a href="/websec/traversal/path_traversal.html">Path Traversal</a></div>
+<div class="notes-link"><a href="/websec/xss/xss.html">Xss</a></div>
+<div class="notes-link"><a href="/websec/xss_cookie_manipulation_cross_domain_redirection.html">Xss Cookie Manipulation Cross Domain Redirection</a></div>
+<div class="notes-link"><a href="/websec/xxe/xxe.html">Xxe</a></div>
+
+            </div>
+        </main>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const currentPage = document.body.getAttribute('data-current-page');
+            
+            document.querySelectorAll('.sidebar-content .expandable').forEach(item => {
+                const submenu = item.querySelector('ul');
+                if (submenu) {
+                    submenu.style.display = 'none';
+                }
+            });
+            
+            document.querySelectorAll('.sidebar-content .expandable').forEach(item => {
+                item.addEventListener('click', function(e) {
+                    if (e.target === this || (e.target.tagName !== 'A' && e.target.parentElement === this)) {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        
+                        this.classList.toggle('expanded');
+                        
+                        const submenu = this.querySelector('ul');
+                        if (submenu) {
+                            if (submenu.style.display === 'block') {
+                                submenu.style.display = 'none';
+                            } else {
+                                submenu.style.display = 'block';
+                            }
+                        }
+                    }
+                });
+            });
+            
+            if (currentPage) {
+                const currentLink = document.querySelector(`.sidebar-content a[href="${currentPage}"]`);
+                if (currentLink) {
+                    currentLink.classList.add('active');
+                    
+                    document.querySelectorAll('.sidebar-content .expandable.expanded').forEach(item => {
+                        if (!item.contains(currentLink)) {
+                            item.classList.remove('expanded');
+                            const submenu = item.querySelector('ul');
+                            if (submenu) {
+                                submenu.style.display = 'none';
+                            }
+                        }
+                    });
+                    
+                    let parent = currentLink.parentElement;
+                    while (parent) {
+                        if (parent.classList && parent.classList.contains('expandable')) {
+                            parent.classList.add('expanded');
+                            parent.classList.add('has-active-child'); 
+                            const submenu = parent.querySelector('ul');
+                            if (submenu) {
+                                submenu.style.display = 'block';
+                            }
+                        }
+                        parent = parent.parentElement;
+                    }
+                    
+                    setTimeout(() => {
+                        const sidebarElement = document.querySelector('.sidebar');
+                        const activeElement = currentLink;
+                        
+                        if (sidebarElement && activeElement) {
+                            const activeRect = activeElement.getBoundingClientRect();
+                            const sidebarRect = sidebarElement.getBoundingClientRect();
+                            const offsetTop = activeRect.top - sidebarRect.top;
+                            
+                            sidebarElement.scrollTop = offsetTop - (sidebarElement.clientHeight / 4);
+                        }
+                    }, 100);
                 }
             }
-            return false;
-        }
-        return true;
-    }
-
-    function filterLinks() {
-        var input = document.getElementById('searchInput').value.toLowerCase();
-        var links = document.querySelectorAll('#linkList a');
-
-        links.forEach(function(link) {
-            var text = link.textContent.toLowerCase();
-            if (fuzzysearch(input, text)) {
-                link.style.display = ''; // Show link
-            } else {
-                link.style.display = 'none'; // Hide link
-            }
         });
-    }
-</script>
+    </script>   
 </body>
 </html>

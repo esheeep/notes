@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Notes</title>
+    <title>Notes Index</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
@@ -11,54 +11,183 @@
     <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
     <link rel="manifest" href="site.webmanifest">
     <link rel="stylesheet" type="text/css" href="style.css">
+    <style>
+        .notes-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 16px;
+            padding: 16px 0;
+        }
+
+        .notes-link {
+            background-color: #fff;
+            border: 1px solid #e1e4e8;
+            border-radius: 6px;
+            padding: 16px;
+            transition: all 0.2s ease;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+        }
+
+        .notes-link:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+            border-color: #d1d5da;
+        }
+
+        .notes-link a {
+            color: #0366d6;
+            text-decoration: none;
+            font-weight: 500;
+            display: block;
+            padding: 4px 0;
+        }
+
+        .notes-link a:hover {
+            text-decoration: underline;
+        }
+
+        .description {
+            font-size: 16px;
+            color: #586069;
+            margin-bottom: 24px;
+            max-width: 800px;
+            line-height: 1.5;
+            
+            border-left: none;
+            padding-left: 0;
+            font-style: normal;
+            
+            background-color: #f6f8fa;
+            padding: 12px 16px;
+            border-radius: 6px;
+        }
+
+        .content h1 {
+            margin-bottom: 16px;
+        }
+        .description {
+            font-weight: 400;
+            border-left: 3px solid #0366d6;
+            padding-left: 12px;
+            font-style: italic;
+        }
+
+        @media (max-width: 768px) {
+            .notes-grid {
+                grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+                gap: 12px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .notes-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
 </head>
 <body>
-<div class="wrapper">
-    <div class="header-icon">
-        <a href="https://evxk.electricsheep.cc"><img src="favicon-32x32.png" alt="Icon" class="fire-icon"></a>
+    <header class="header">
+        <div class="header-content">
+            <a href="https://evxk.electricsheep.cc" class="logo">
+                <img src="favicon-32x32.png" alt="Logo">
+            </a>
+            <div class="search-bar">
+                <input type="text" name="search-bar" placeholder="Search..">
+            </div>
+        </div>
+    </header>
+    <div class="container">
+        <nav class="sidebar">
+            <div class="sidebar-content">
+                {{ navigation }}
+            </div>
+        </nav>
+        <main class="content">
+            <h1>Knowledge Base</h1>
+            <div class="description">
+                Tech notes I've collected over the years - mostly application security, web hacking techniques, 
+    and penetration testing, plus some coding, DevOps, and networking stuff I've found useful.
+            </div>
+            <div class="notes-grid">
+                {{ links }}
+            </div>
+        </main>
     </div>
-    <div class="search-bar"><input type="text" id="searchInput" placeholder="Search..." onkeyup="filterLinks()"></div>
-    <div id="linkList">
-        {{ links }}
-    </div>
-</div>
-<script>
-    'use strict';
-
-    function fuzzysearch(needle, haystack) {
-        var hlen = haystack.length;
-        var nlen = needle.length;
-        if (nlen > hlen) {
-            return false;
-        }
-        if (nlen === hlen) {
-            return needle === haystack;
-        }
-        outer: for (var i = 0, j = 0; i < nlen; i++) {
-            var nch = needle.charCodeAt(i);
-            while (j < hlen) {
-                if (haystack.charCodeAt(j++) === nch) {
-                    continue outer;
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const currentPage = document.body.getAttribute('data-current-page');
+            
+            document.querySelectorAll('.sidebar-content .expandable').forEach(item => {
+                const submenu = item.querySelector('ul');
+                if (submenu) {
+                    submenu.style.display = 'none';
+                }
+            });
+            
+            document.querySelectorAll('.sidebar-content .expandable').forEach(item => {
+                item.addEventListener('click', function(e) {
+                    if (e.target === this || (e.target.tagName !== 'A' && e.target.parentElement === this)) {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        
+                        this.classList.toggle('expanded');
+                        
+                        const submenu = this.querySelector('ul');
+                        if (submenu) {
+                            if (submenu.style.display === 'block') {
+                                submenu.style.display = 'none';
+                            } else {
+                                submenu.style.display = 'block';
+                            }
+                        }
+                    }
+                });
+            });
+            
+            if (currentPage) {
+                const currentLink = document.querySelector(`.sidebar-content a[href="${currentPage}"]`);
+                if (currentLink) {
+                    currentLink.classList.add('active');
+                    
+                    document.querySelectorAll('.sidebar-content .expandable.expanded').forEach(item => {
+                        if (!item.contains(currentLink)) {
+                            item.classList.remove('expanded');
+                            const submenu = item.querySelector('ul');
+                            if (submenu) {
+                                submenu.style.display = 'none';
+                            }
+                        }
+                    });
+                    
+                    let parent = currentLink.parentElement;
+                    while (parent) {
+                        if (parent.classList && parent.classList.contains('expandable')) {
+                            parent.classList.add('expanded');
+                            parent.classList.add('has-active-child'); 
+                            const submenu = parent.querySelector('ul');
+                            if (submenu) {
+                                submenu.style.display = 'block';
+                            }
+                        }
+                        parent = parent.parentElement;
+                    }
+                    
+                    setTimeout(() => {
+                        const sidebarElement = document.querySelector('.sidebar');
+                        const activeElement = currentLink;
+                        
+                        if (sidebarElement && activeElement) {
+                            const activeRect = activeElement.getBoundingClientRect();
+                            const sidebarRect = sidebarElement.getBoundingClientRect();
+                            const offsetTop = activeRect.top - sidebarRect.top;
+                            
+                            sidebarElement.scrollTop = offsetTop - (sidebarElement.clientHeight / 4);
+                        }
+                    }, 100);
                 }
             }
-            return false;
-        }
-        return true;
-    }
-
-    function filterLinks() {
-        var input = document.getElementById('searchInput').value.toLowerCase();
-        var links = document.querySelectorAll('#linkList a');
-
-        links.forEach(function(link) {
-            var text = link.textContent.toLowerCase();
-            if (fuzzysearch(input, text)) {
-                link.style.display = ''; // Show link
-            } else {
-                link.style.display = 'none'; // Hide link
-            }
         });
-    }
-</script>
+    </script>   
 </body>
 </html>

