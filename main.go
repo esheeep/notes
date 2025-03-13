@@ -84,27 +84,20 @@ func extractCategoryFromPath(path string) string {
 	return ""
 }
 
-// New function to convert wiki-style image links to HTML img tags
 func convertWikiImageLinks(content string) string {
-	// Regex to match ![[image name.extension]]
 	wikiImagePattern := regexp.MustCompile(`!\[\[(.*?)\]\]`)
 
-	// Replace with HTML img tags pointing to /attachments/imagename
 	return wikiImagePattern.ReplaceAllStringFunc(content, func(match string) string {
-		// Extract the image filename from between the brackets
 		imageName := wikiImagePattern.FindStringSubmatch(match)[1]
 
-		// Replace spaces with underscores in the file path
 		imageNameWithUnderscores := strings.ReplaceAll(imageName, " ", "_")
 
-		// Add style to make image responsive (max-width: 100%)
 		return fmt.Sprintf(`<img src="/attachments/%s" alt="%s" style="max-width: 100%%; height: auto;" />`,
 			imageNameWithUnderscores, imageName)
 	})
 }
 
 func mdToHTML(md []byte) []byte {
-	// First convert wiki-style image links
 	mdContent := convertWikiImageLinks(string(md))
 
 	extensions := parser.CommonExtensions | parser.AutoHeadingIDs | parser.NoEmptyLineBeforeBlock
